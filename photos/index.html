@@ -1,0 +1,39 @@
+
+<div class="splash-container">
+  <div class="splash">
+    
+    <h1>{{ .Params.heading }}<span class="fancy">.</span></h1>
+    {{ if isset .Params "handle" }}
+    <span class="handle">@{{ .Params.handle }}</span>
+    {{ end }}
+    <h2>
+      {{ .Params.subheading }}
+    </h2>
+    <!-- Replace MEEEEE -->
+
+    
+    <p>
+      I'm interested in the application of Artificial Intelligence to healthcare.
+
+
+      <ul>
+	<li>
+      I'm currently an M.D. Candidate at the <a href="https://medicine.illinois.edu" target="_blank">Carle Illinois College of Medicine</a><br>
+      at the University of Illinois, Urbana-Champaign.
+      </li>
+    <br>
+      <li>
+      Previously, I completed my B.S. and M.S. in Computer Science at
+      Arizona <br> State University, where I spent 5 years conducting clinical Natural <br>Language Processing research in the <a href="https://cogintlab-asu.github.io" target="_blank">Cognition and Intelligence Lab</a>.
+
+      </li>
+      </ul>
+
+    </p>
+    
+
+    {{ partial "social-icons.html" .}}
+  </div>
+</div>
+
+{{ end }}
