@@ -2,7 +2,7 @@
 <html lang="en-us">
 
 <head>
-  <title>Research | Sam Rawal</title>
+  <title>Research and Projects | Sam Rawal</title>
 
   <meta charset="UTF-8">
   <meta name="language" content="en">
@@ -15,7 +15,7 @@
   
   
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Research" />
+  <meta name="twitter:title" content="Research and Projects" />
   <meta name="twitter:description" content=""
   />
   <meta name="twitter:site" content="@https://twitter.com/samarthrawal" />
@@ -51,7 +51,7 @@
       "@context": "http://schema.org", 
       "@type": "WebSite", 
       "url": "http:\/\/samrawal.github.io\/research\/",
-      "name": "Research",
+      "name": "Research and Projects",
       "author": {
         "@type": "Person",
         "name": ""
@@ -97,68 +97,141 @@
 
 <style>
   .sam-splash-container {
-      padding-top: 5%;
-      padding-left: 5em;
-      padding-right: 5em;
+      padding-top: 60px;
+      padding-left: 2%;
+      padding-right: 10%;
       padding-bottom: 5em;
   }
-  h2 {
-      
-      font-size: 2em;
+
+  .splash h2 {
+      margin-top: -2em;
       padding-top: 2em;
-	      
+      font-size: 1.5em;
+      white-space: nowrap;
   }
-  h1 {
-     
+
+  li li {
+      margin-top: -1em;
+      padding-top: -1000px; 
   }
+
 </style>
 
 <div class="sam-splash-container">
   <div class="splash">
     
-    <h1 id="post__title">Research</h1>
+    <h1 id="post__title">Research and Projects</h1>
     
     
 
     <p class="post__content">
 	
 <p>
-The majority of my work has been in Clinical Natural Language Processing. The overarching theme of my research under Dr. Chitta Baral has been to <strong>leverage NLP across biomedical &amp; clinical data (like Electronic Medical Records) to make actionable decisions that improve efficiency of healthcare delivery</strong>.</p>
+I have been researching in the Clinical Natural Language Processing (NLP) space for the past 7 years. The overarching theme of my work is <strong>semantic parsing of clinical data (like Electronic Medical Records) to extract information that can be used to make actionable decisions for healthcare delivery and contribute to downstream research work.</strong></p>
+<ul>
+<li>
+<p>At Arizona State (2014-20), I worked under Dr. Chitta Baral in the <a href="https://cogintlab-asu.github.io">Cognition and Intelligence Lab</a> throughout my BS and MS, where I had the opportunity to collaborate on research projects at organizations like the Mayo Clinic </p>
+</li>
+<li>
+<p>At the University of Illinois (2020-24) as a medical student, I am currently working under <a href="https://sites.google.com/view/yoga-personal/home">Dr. Yoga Varatharajah</a> on semantic processing of EEG-related medical notes.</p>
+</li>
+<li>
+<p>I have several (non-research) projects on <a href="https://github.com">GitHub</a>, including</p>
+<ul>
+<li>
+<p><strong><a href="https://github.com/samrawal/emacs-secondmate">emacs-secondmate</a></strong>, a &#34;mini-imitation&#34; of GitHub Copilot for Emacs via HuggingFace Transformers</p>
+</li>
+<li>
+<p><strong><a href="https://github.com/clinisift/clinitokenizer">clinitokenizer</a></strong> and <strong><a href="https://github.com/clinisift/clinisift">clinisift</a></strong>, BERT-based off-the-shelf tools for medical sentence tokenization and Named Entity Recognition, respectively</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Below are a few of the projects I&#39;ve worked on. There are also more details on <a href="https://scholar.google.com/citations?hl=en&amp;view_op=list_works&amp;gmla=AJsN-F4Z_DwLiouFvTlzv8CWVBrQnrbn0veL7RkBpve5vB2hgo20WK8-nJf4v3jcYnydXKTM1h4HpM1HbExZL8OrDjLRtl0zkg&amp;user=exo0qwUAAAAJ">Google Scholar</a>, my <a href="../pdf/SamRawal_Resume.pdf">resume</a>, or <a href="https://www.linkedin.com/in/samrawal/">LinkedIn</a>.</p>
 <p>
-Below are a few of the things I&#39;ve worked on. There are also more details on <a href="https://scholar.google.com/citations?hl=en&amp;view_op=list_works&amp;gmla=AJsN-F4Z_DwLiouFvTlzv8CWVBrQnrbn0veL7RkBpve5vB2hgo20WK8-nJf4v3jcYnydXKTM1h4HpM1HbExZL8OrDjLRtl0zkg&amp;user=exo0qwUAAAAJ">Google Scholar</a> or my <a href="https://www.linkedin.com/in/samrawal/">LinkedIn</a>.</p>
+
+ <hr> 
+</p>
 <div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
-Multi-Perspective Biomedical Semantic Question-Answering (MS Thesis)
+SCORE-IT: A Machine Learning-based Too for Automatic
 </h2>
-<div id="outline-text-headline-1" class="outline-text-2">
-<p>Given a query in natural language, search across 29 million PubMed abstracts and identify top <em>n</em> candidate sentences that answer the query. To better &#34;understand&#34; and rank candidates, a weighted &#34;Multi-Perspective&#34; approach, utilizing three BERT models trained on different tasks, is taken.</p>
-<p>
-<a href="https://arxiv.org/abs/2009.01938">Short Paper</a> | <a href="https://arxiv.org/abs/2008.01526">Full Thesis</a></p>
-<img src="../images/semanticir.png" alt="../images/semanticir.png" title="../images/semanticir.png" height="200px;" style="margin-top: 1em"/>
-</div>
 </div>
 <div id="outline-container-headline-2" class="outline-2">
 <h2 id="headline-2">
-Clinical Trial Eligibility Classification from Electronic Medical Records
+Standardization of EEG Reports
 </h2>
 <div id="outline-text-headline-2" class="outline-text-2">
-<p>From natural-language patient EMR, classify whether patient falls within or outside 13 clinical trial cohorts (i.e. alcohol abuse, drug abuse, MI within past 6 months, advanced coronary artery disease).</p>
+<p>
+In this work, we propose a machine learning-based system that automatically extracts components from the SCORE specification from unstructured, natural-language EEG reports. Specifically, our system identifies (1) the type of seizure that was observed in the recording, per physician impression; (2) whether the session recording was normal or abnormal according to physician impression; (3) whether the patient was diagnosed with epilepsy or not.</p>
+<p>
+<em>Best Paper Award at 2021 IEEE Signal Processing in Medicine and Biology Symposium (SPMB).</em></p>
+<p>
+<a href="https://arxiv.org/pdf/2109.05694.pdf">Paper</a></p>
+<img src="../images/scoreit.png" alt="../images/scoreit.png" title="../images/scoreit.png" height="200px;" style="margin-top: 1em"/>
+<p>
+
+ <br><hr> 
+</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Multi-Perspective Biomedical Semantic Question-Answering
+</h2>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+(MS Thesis)
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>This work introduces the concept of a Multi-Perspective IR system, a novel methodology that combines multiple Transformers-based deep learning and traditional IR models to better predict the relevance of a query-sentence pair, along with a standardized framework for tuning this system. </p>
+<p>
+Given a query in natural language, search across 29 million PubMed abstracts and identify top <em>n</em> candidate sentences that answer the query. To better &#34;understand&#34; and rank candidates, a weighted &#34;Multi-Perspective&#34; approach, utilizing three BERT models trained on different tasks, is taken.</p>
+<p>
+<a href="https://arxiv.org/abs/2009.01938">Short Paper</a> | <a href="https://arxiv.org/abs/2008.01526">Full Thesis</a></p>
+<img src="../images/semanticir.png" alt="../images/semanticir.png" title="../images/semanticir.png" height="200px;" style="margin-top: 1em"/>
+<p>
+
+ <br><hr> 
+</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+Clinical Trial Eligibility Classification from Electronic Medical Records
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>Selecting cohorts for a clinical trial requires costly and time-consuming manual chart reviews resulting in poor participation. From natural-language patient medical records, our system classifies whether a patient is within or outside 13 clinical trial cohorts (i.e. alcohol abuse, drug abuse, MI within past 6 months, advanced coronary artery disease).</p>
 <p>
 Part of the <a href="https://n2c2.dbmi.hms.harvard.edu/">n2c2 2018 Challenge</a> – ranked #1 out of 47 teams.</p>
 <p>
 <a href="https://arxiv.org/abs/1902.09674">Paper</a></p>
 <img src="../images/clinicaltrial.png" alt="../images/clinicaltrial.png" title="../images/clinicaltrial.png" height="200px;" style="margin-top: 1em"/>
+<p>
+
+ <br><hr> 
+</p>
 </div>
 </div>
-<div id="outline-container-headline-3" class="outline-2">
-<h2 id="headline-3">
-Prescription Information Extraction from Electronic Health Records (BS Thesis)
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+Prescription Information Extraction from Electronic Health Records
 </h2>
-<div id="outline-text-headline-3" class="outline-text-2">
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+(BS Thesis)
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
 <p>Bidirectional LSTM + CRF neural architecture for Named Entity Recognition applied to the i2b2 2009 Medication Information extraction challenge.</p>
 <p>
 <a href="https://repository.asu.edu/items/48493">Undergraduate Honors Thesis</a></p>
 <img src="../images/medner_example.png" alt="../images/medner_example.png" title="../images/medner_example.png" height="200px;" style="margin-top: 1em; border:black 1px solid"/>
+<p>
+
+ <br><hr> 
+</p>
 </div>
 </div>
 
