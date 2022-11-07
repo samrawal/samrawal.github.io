@@ -5,11 +5,7 @@
     <link>http://samrawal.github.io/</link>
     <description>Recent content on Sam Rawal</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	<atom:link href="http://samrawal.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="http://samrawal.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Music</title>
       <link>http://samrawal.github.io/music/</link>
@@ -17,7 +13,8 @@
       
       <guid>http://samrawal.github.io/music/</guid>
       <description>I have been studying North Indian (Hindustani) classical vocal music for the past 17 years, for which I completed my Visharad in 2014. I also play the Tabla, a North Indian rhythm instrument (which can be seen below). Over the past decade, I&amp;#39;ve given around 30 Indian classical and light vocal and instrumental public performances.
-  Below are some recent performances over the past year at UIUC:</description>
+Below are some recent performances over the past year at UIUC:
+Chaturang in Raag Miyan ki Malhar A semiclassical film song in Raag Bhupali I also play the acoustic guitar, electric guitar, ukulele, and dabble with a few other instruments.</description>
     </item>
     
     <item>
@@ -26,8 +23,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://samrawal.github.io/projects/</guid>
-      <description> Projects  Some stuff I&amp;#39;m working on currently and have worked on in the past
-  </description>
+      <description>Projects Some stuff I&amp;#39;m working on currently and have worked on in the past</description>
     </item>
     
     <item>
@@ -37,7 +33,7 @@
       
       <guid>http://samrawal.github.io/research/</guid>
       <description>I have been researching in the Clinical Natural Language Processing (NLP) space for the past 7 years. The overarching theme of my work is semantic parsing of clinical data (like Electronic Medical Records) to extract information that can be used to make actionable decisions for healthcare delivery and contribute to downstream research work.
-  At Arizona State (2014-20), I worked under Dr. Chitta Baral in the Cognition and Intelligence Lab throughout my BS and MS, where I had the opportunity to collaborate on research projects at organizations like the Mayo Clinic   At the University of Illinois (2020-24) as a medical student, I am currently working under Dr.</description>
+At Arizona State (2014-20), I worked under Dr. Chitta Baral in the Cognition and Intelligence Lab throughout my BS and MS, where I had the opportunity to collaborate on research projects at organizations like the Mayo Clinic At the University of Illinois (2020-24) as a medical student, I am currently working under Dr.</description>
     </item>
     
   </channel>
