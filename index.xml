@@ -24,7 +24,7 @@
       <description>A collection of non-research projects I&amp;#39;ve worked on over the years. 🤖 Personal projects are hosted on github.com/samrawal. 🌵 Clinical/medical projects are available on cactiML.com. I also Tweet and blog about my projects!
 Some (current) personal favorites: Emacs:
 emacs-secondmate, a &amp;#34;mini-imitation&amp;#34; of GitHub Copilot for Emacs via HuggingFace Transformers gpt-emacs-macro, running &amp;#34;semantic macros&amp;#34; in Emacs via GPT-3 (and a blog post on Semantic Macros in Emacs) Clinical AI:
-clinitokenizer and clinisift, BERT-based off-the-shelf tools for medical sentence tokenization and Named Entity Recognition, respectively Clinical GPT-3, an exploration of OpenAI GPT-3&amp;#39;s abilities to perform various Natural Language Processing tasks in the clinical domain, on patient medical records.</description>
+MedQA: a GPT-powered clinical reference tool that can answer clinical questions and follow-up questions in natural language, along with references to sources.</description>
     </item>
     
     <item>
