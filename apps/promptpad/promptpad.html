@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Prompts</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 0.8em;
+      }
+
+      .prompt-container {
+        //padding: 10px;
+        // border: 1px solid #ccc;
+        //background-color: #f9f9f9;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .prompt {
+        flex-grow: 1;
+        margin-right: 10px;
+      }
+
+      .folder-input {
+        width: 20%;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      .folder-container {
+        // padding: 10px;
+        // border: 1px solid #ccc;
+        //background-color: #f1f1f1;
+        margin-bottom: 10px;
+      }
+
+      .folder {
+        font-weight: bold;
+      }
+
+      .collapse-btn {
+        margin-left: 10px;
+      }
+
+      .folder-content {
+        display: none;
+        padding: 10px;
+      }
+
+      .prompt-input {
+        width: 96%
+      }
+
+      .prompt-container {
+        width: 100%;
+      }
+
+      .folder-select {
+        width: 20%
+      }
+
+      .folder-input,
+      .folder-select {
+        display: inline-block;
+        vertical-align: middle;
+        /* align elements vertically */
+        margin-right: 10px;
+        /* add some space between the elements */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Prompts</h1>
+    <input type="text" class="prompt-input" placeholder="Add a prompt...">
+    <select class="folder-select">
+      <option value="">Select folder</option>
+    </select>
+    <input type="text" class="folder-input" placeholder="Create a folder...">
+    <hr>
+    <div class="prompts"></div>
+    <hr>
+    <button id="export-prompts-btn">Export Prompts</button>
+    <hr>
+        <center>
+	<p>Sam Rawal (<a href="https://samrawal.com/">samrawal.com</a> / <a href="https://twitter.com/samarthrawal">@samarthrawal</a>)</p>
+    </center>
+
+    <!--<button id="import-prompts-btn">Import Prompts</button> -->
+    <!--<input id="import-prompts-file" type="file" style="display: none;"> -->
+
+    <script>
+      const promptInput = document.querySelector('.prompt-input');
+      const folderInput = document.querySelector('.folder-input');
+      const prompts = document.querySelector('.prompts');
+      const folderSelect = document.querySelector('.folder-select');
+
+      function createPrompt(text, folder) {
+        const promptContainer = document.createElement('div');
+        promptContainer.className = 'prompt-container';
+        promptContainer.style.width = "100%";
+        const upBtn = document.createElement('button');
+        upBtn.textContent = '⬆️';
+        upBtn.onclick = function() {
+          const prevSibling = promptContainer.previousElementSibling;
+          if (prevSibling) {
+            prevSibling.insertAdjacentElement('beforebegin', promptContainer);
+          }
+        };
+        upBtn.style.border = 'none'; // Remove button border
+        upBtn.style.padding = '0'; // Remove padding to make the emoji centered
+        upBtn.style.backgroundColor = 'transparent'; // Transparent background
+        promptContainer.appendChild(upBtn);
+        const downBtn = document.createElement('button');
+        downBtn.textContent = '⬇️';
+        downBtn.onclick = function() {
+          const nextSibling = promptContainer.nextElementSibling;
+          if (nextSibling) {
+            nextSibling.insertAdjacentElement('afterend', promptContainer);
+          }
+        };
+        downBtn.style.border = 'none'; // Remove button border
+        downBtn.style.padding = '0'; // Remove padding to make the emoji centered
+        downBtn.style.paddingright = '0'; // Remove padding to make the emoji centered
+        downBtn.style.backgroundColor = 'transparent'; // Transparent background
+        downBtn.style.paddingRight = '2em';
+        promptContainer.appendChild(downBtn);
+        const prompt = document.createElement('span');
+        prompt.className = 'prompt';
+        prompt.textContent = text;
+        promptContainer.appendChild(prompt);
+        const copyBtn = document.createElement('button');
+        copyBtn.textContent = 'Copy';
+        copyBtn.onclick = function() {
+          //navigator.clipboard.writeText(text);
+          copyText(text);
+        };
+        copyBtn.style.backgroundColor = 'green'; // Dark green color
+        copyBtn.style.color = '#FFFFFF'; // White text color
+        copyBtn.style.border = 'none'; // Remove button border
+        copyBtn.style.padding = '4px 20px'; // Add some padding for a nicer look
+	  copyBtn.style.marginRight = '20px';
+        promptContainer.appendChild(copyBtn);
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = '🗑️';
+        deleteBtn.onclick = function() {
+          promptContainer.remove();
+        };
+        deleteBtn.style.backgroundColor = 'transparent'; // Red color
+        deleteBtn.style.border = 'none'; // Remove button border
+        deleteBtn.style.width = 'auto'; // Set width to 'auto' to fit the content (the emoji)
+        deleteBtn.style.padding = '0'; // Remove padding to make the emoji centered
+        deleteBtn.style.float = 'right'; // Float the button to the right
+        promptContainer.appendChild(deleteBtn);
+        if (folder) {
+          folder.querySelector('.folder-content').appendChild(promptContainer);
+        } else {
+          prompts.appendChild(promptContainer);
+        }
+      }
+
+      function createFolder(name) {
+        const folderContainer = document.createElement('div');
+        folderContainer.className = 'folder-container';
+        folderContainer.setAttribute('data-folder-name', name);
+        const upBtn = document.createElement('button');
+        upBtn.textContent = '⬆️';
+        upBtn.onclick = function() {
+          const prevSibling = folderContainer.previousElementSibling;
+          if (prevSibling) {
+            prevSibling.insertAdjacentElement('beforebegin', folderContainer);
+          }
+        };
+        upBtn.style.border = 'none'; // Remove button border
+        upBtn.style.padding = '0'; // Remove padding to make the emoji centered
+        upBtn.style.paddingright = '0'; // Remove padding to make the emoji centered
+        upBtn.style.backgroundColor = 'transparent'; // Transparent background
+        folderContainer.appendChild(upBtn);
+        const downBtn = document.createElement('button');
+        downBtn.textContent = '⬇️';
+        downBtn.onclick = function() {
+          const nextSibling = folderContainer.nextElementSibling;
+          if (nextSibling) {
+            nextSibling.insertAdjacentElement('afterend', folderContainer);
+          }
+        };
+        downBtn.style.border = 'none'; // Remove button border
+        downBtn.style.padding = '0'; // Remove padding to make the emoji centered
+        downBtn.style.paddingright = '0'; // Remove padding to make the emoji centered
+        downBtn.style.backgroundColor = 'transparent'; // Transparent background
+        downBtn.style.paddingRight = '0em';
+        folderContainer.appendChild(downBtn);
+        const collapseBtn = document.createElement('button');
+        collapseBtn.className = 'collapse-btn';
+        collapseBtn.textContent = '▶';
+        collapseBtn.style.backgroundColor = 'transparent'; // Transparent background
+        collapseBtn.style.padding = '0'; // Remove padding to make the emoji centered
+        folderContainer.appendChild(collapseBtn);
+        collapseBtn.style.paddingRight = '2em';
+        const folder = document.createElement('span');
+        folder.className = 'folder';
+        folder.textContent = name;
+        folderContainer.appendChild(folder);
+        const deleteBtn = document.createElement('button');
+        deleteBtn.style.float = 'right'; // Float the button to the right
+        deleteBtn.style.backgroundColor = 'transparent'; // Transparent background
+        deleteBtn.style.color = '#FFFFFF'; // White text color
+        deleteBtn.style.width = 'auto'; // Set width to 'auto' to fit the content (the emoji)
+        deleteBtn.style.padding = '0'; // Remove padding to make the emoji centered
+        deleteBtn.style.marginRight = '16px'; // Remove padding to make the emoji centered
+        deleteBtn.textContent = '🗑️';
+        deleteBtn.onclick = function() {
+          folderContainer.remove();
+          folderSelect.removeChild(folderSelect.querySelector(`option[value="${name}"]`));
+        };
+        folderContainer.appendChild(deleteBtn);
+        const folderContent = document.createElement('div');
+        folderContent.className = 'folder-content';
+        folderContainer.appendChild(folderContent);
+	folderContent.style.display = 'none';
+        collapseBtn.onclick = function() {
+          if (folderContent.style.display === 'none') {
+            folderContent.style.display = 'block';
+            collapseBtn.textContent = '▼';
+          } else {
+            folderContent.style.display = 'none';
+            collapseBtn.textContent = '▶';
+          }
+        };
+        prompts.appendChild(folderContainer);
+        const folderOption = document.createElement('option');
+        folderOption.textContent = name;
+        folderOption.value = name;
+        folderSelect.appendChild(folderOption);
+      }
+      promptInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+          // Check if Shift is also pressed
+          if (e.shiftKey) {
+            // Create a newline in the prompt input
+            promptInput.value += '\n';
+          } else {
+            const text = promptInput.value.trim();
+            if (text !== '') {
+              const selectedFolderName = folderSelect.value;
+              if (selectedFolderName === '') {
+                const defaultFolder = prompts.querySelector(`[data-folder-name="Default"]`);
+                createPrompt(text, defaultFolder);
+              } else {
+                const selectedFolder = prompts.querySelector(`[data-folder-name="${selectedFolderName}"]`);
+                createPrompt(text, selectedFolder);
+              }
+              promptInput.value = '';
+            }
+            // Prevent default behavior (e.g., form submission)
+            e.preventDefault();
+          }
+        }
+      });
+      folderInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && e.target.value.trim() !== '') {
+          createFolder(e.target.value.trim());
+          e.target.value = '';
+        }
+      });
+
+      function copyText(text) {
+        const tempInput = document.createElement('textarea');
+        document.body.appendChild(tempInput);
+        // Check if the prompt contains the string "{}"
+        if (text.includes('{}')) {
+          const userInput = prompt('Enter variable:');
+          if (userInput !== null) {
+            // Replace "{}" with the entered string
+            text = text.replace('{}', userInput);
+          }
+        }
+        tempInput.value = text;
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+      }
+
+      function saveToLocalStorage() {
+        const folderList = Array.from(document.querySelectorAll('.folder-container')).map(folderContainer => {
+          const folderName = folderContainer.getAttribute('data-folder-name');
+          const promptList = Array.from(folderContainer.querySelectorAll('.prompt-container')).map(promptContainer => ({
+            text: promptContainer.querySelector('.prompt').textContent
+          }));
+          return {
+            name: folderName,
+            prompts: promptList
+          };
+        });
+        localStorage.setItem('folders', JSON.stringify(folderList));
+      }
+
+      function loadFromLocalStorage() {
+        const folderList = JSON.parse(localStorage.getItem('folders')) || [];
+        folderList.forEach(folder => {
+          createFolder(folder.name);
+          folder.prompts.forEach(prompt => createPrompt(prompt.text, document.querySelector(`.folder-container[data-folder-name="${folder.name}"]`)));
+        });
+      }
+
+      function createDefaultFolderIfNotExist() {
+        const defaultFolder = prompts.querySelector(`[data-folder-name="Default"]`);
+        if (!defaultFolder) {
+          createFolder('Default');
+        }
+        // Set "Default" as the default option in the dropdown
+        const defaultOption = folderSelect.querySelector(`option[value="Default"]`);
+        defaultOption.selected = true;
+      }
+      window.addEventListener('beforeunload', saveToLocalStorage);
+      loadFromLocalStorage();
+      createDefaultFolderIfNotExist();
+
+      function exportPrompts() {
+        const data = [];
+        const folderElements = prompts.querySelectorAll('.folder-container');
+        folderElements.forEach(folderElement => {
+          const folderName = folderElement.querySelector('.folder').innerText;
+          const promptElements = folderElement.querySelectorAll('.prompt-container');
+          const promptsData = [];
+          promptElements.forEach(promptElement => {
+            promptsData.push(promptElement.querySelector('.prompt').innerText);
+          });
+          data.push({
+            folderName: folderName,
+            prompts: promptsData
+          });
+        });
+        const json = JSON.stringify(data);
+        const blob = new Blob([json], {
+          type: 'application/json'
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'prompts.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+      const exportPromptsBtn = document.getElementById('export-prompts-btn');
+      exportPromptsBtn.onclick = exportPrompts;
+        function importPrompts(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = JSON.parse(e.target.result);
+                data.forEach(folderData => {
+                    const folder = createFolder(folderData.folderName);
+                    folderData.prompts.forEach(promptText => {
+                        createPrompt(promptText, folder);
+                    });
+                });
+                saveToLocalStorage();
+            };
+            reader.readAsText(file);
+        }
+
+        const importPromptsBtn = document.getElementById('import-prompts-btn');
+        const importPromptsFile = document.getElementById('import-prompts-file');
+        importPromptsBtn.onclick = function() {
+            importPromptsFile.click();
+        };
+        importPromptsFile.onchange = importPrompts;
+
+
+
+    </script>
+  </body>
+</html>
