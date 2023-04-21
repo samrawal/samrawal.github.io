@@ -7,7 +7,7 @@
     <title>My Prompts</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
+        font-family: SF Mono, Consolas, monospace, Arial, sans-serif;
         font-size: 0.8em;
       }
 
@@ -60,18 +60,20 @@
         width: 100%;
       }
 
-      .folder-select {
-        width: 20%
+
+      .folder-input {
+      //margin-right: 10px;
       }
 
-      .folder-input,
-      .folder-select {
+      .folder-input, .folder-select {
         display: inline-block;
         vertical-align: middle;
+      width:40%;
         /* align elements vertically */
-        margin-right: 10px;
         /* add some space between the elements */
       }
+
+
     </style>
   </head>
   <body>
@@ -92,6 +94,7 @@
 
     <!--<button id="import-prompts-btn">Import Prompts</button> -->
     <!--<input id="import-prompts-file" type="file" style="display: none;"> -->
+
 
     <script>
       const promptInput = document.querySelector('.prompt-input');
