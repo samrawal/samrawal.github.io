@@ -24,7 +24,7 @@
 
       .prompt {
         flex-grow: 1;
-        margin-right: 10px;
+        margin-right:: 10px;
       }
 
       .folder-input {
@@ -59,6 +59,7 @@
 
       .prompt-container {
         width: 100%;
+
       }
 
 
@@ -82,7 +83,10 @@
     <i>Use {} to denote a variable that you can enter in real-time.</i>
     <br>
     <br>
-    <input type="text" class="prompt-input" placeholder="Add a prompt...">
+    <!--<input type="text" class="prompt-input" placeholder="Add a prompt...">-->
+    <textarea class="prompt-input" placeholder="Add a prompt..." rows="2"></textarea>
+
+    📁
     <select class="folder-select">
       <option value="">Select folder</option>
     </select>
@@ -91,6 +95,11 @@
     <div class="prompts"></div>
     <hr>
     <button id="export-prompts-btn">Export Prompts</button>
+    <!--
+    <button id="import-prompts-btn">Import Prompts</button>
+    <input type="file" id="import-file-input" accept=".json" hidden>
+    -->
+
     <hr>
         <center>
 	<p>Sam Rawal (<a href="https://samrawal.com/">samrawal.com</a> / <a href="https://twitter.com/samarthrawal">@samarthrawal</a>)</p>
@@ -355,6 +364,9 @@
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
       }
+
+
+
       const exportPromptsBtn = document.getElementById('export-prompts-btn');
       exportPromptsBtn.onclick = exportPrompts;
         function importPrompts(event) {
@@ -376,13 +388,19 @@
             };
             reader.readAsText(file);
         }
-
+  
         const importPromptsBtn = document.getElementById('import-prompts-btn');
-        const importPromptsFile = document.getElementById('import-prompts-file');
+        const importFileInput = document.getElementById('import-file-input');
+
         importPromptsBtn.onclick = function() {
-            importPromptsFile.click();
+            importFileInput.click();
         };
-        importPromptsFile.onchange = importPrompts;
+
+        importFileInput.onchange = function() {
+            if (this.files.length > 0) {
+                importPrompts(this.files[0]);
+            }
+        };
 
 
 
