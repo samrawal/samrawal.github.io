@@ -105,8 +105,9 @@
 
     <hr>
         <center>
-	  <p style="color: grey;">Sam Rawal (<a href="https://samrawal.com/" target="_blank">samrawal.com</a> / <a href="https://twitter.com/samarthrawal" target="_blank">@samarthrawal</a>)</p> <br>
-	<a href="https://www.buymeacoffee.com/samrawal" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="width: 25% !important;" ></a>
+	  <p style="color: grey;">
+	    Sam Rawal (<a href="https://samrawal.com/" target="_blank">samrawal.com</a> / <a href="https://twitter.com/samarthrawal" target="_blank">@samarthrawal</a>) / <a href="
+	  </p>
     </center>
 
     <!--<button id="import-prompts-btn">Import Prompts</button> -->
