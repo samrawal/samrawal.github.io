@@ -292,7 +292,7 @@ Use {} for a variable; Shift+Enter for multiple lines" rows="2"></textarea>
             document.body.appendChild(tempInput);
 
             // Check if the prompt contains the string "{}"
-	    var i = 1;
+	          var i = 1;
             while (text.includes('{}')) {
                 const userInput = prompt('Enter variable ' + i +':');
                 if (userInput !== null) {
@@ -302,7 +302,7 @@ Use {} for a variable; Shift+Enter for multiple lines" rows="2"></textarea>
                     // If the user cancels the input, stop replacing
                     break;
                 }
-		i += 1;
+		            i += 1;
             }
 
             tempInput.value = text;
