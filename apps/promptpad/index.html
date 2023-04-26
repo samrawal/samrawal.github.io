@@ -287,9 +287,33 @@ Use {} for a variable; Shift+Enter for multiple lines" rows="2"></textarea>
         }
       });
 
-        function copyText(text) {
-            const tempInput = document.createElement('textarea');
-            document.body.appendChild(tempInput);
+      function escapeString(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function unescapeString(str) {
+  return unescape(str.replace(/\\(.)/g, "$1"));
+}
+
+
+      function copyToClipboard(text_) {
+        text = escapeString(text_)
+        var tempInput = document.createElement("textarea");
+        tempInput.value = text;
+        tempInput.value = unescapeString(text);
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        tempInput.remove();
+      }
+
+
+        function copyText(text_) {
+            // const tempInput = document.createElement('textarea');
+            // document.body.appendChild(tempInput);
+            // tempInput.style.display = "none";
+
+            text = text_;
 
             // Check if the prompt contains the string "{}"
 	          var i = 1;
@@ -298,6 +322,7 @@ Use {} for a variable; Shift+Enter for multiple lines" rows="2"></textarea>
                 if (userInput !== null) {
                     // Replace one occurrence of "{}" with the entered string
                     text = text.replace('{}', userInput);
+                    // console.log(text)
                 } else {
                     // If the user cancels the input, stop replacing
                     break;
@@ -305,10 +330,14 @@ Use {} for a variable; Shift+Enter for multiple lines" rows="2"></textarea>
 		            i += 1;
             }
 
-            tempInput.value = text;
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
+            // console.log(text);
+            copyToClipboard(text);
+
+            // tempInput.value = text;
+            // console.log(tempInput.value)
+            // tempInput.select();
+            // document.execCommand('copy');
+            // document.body.removeChild(tempInput);
         }
 
       function saveToLocalStorage() {
