@@ -96,6 +96,7 @@ Use {} for a variable; Shift+Enter for multiple lines" rows="2"></textarea>
     <div class="prompts"></div>
     <hr>
     <button id="export-prompts-btn">Export Prompts</button>
+
     <!--
     <button id="import-prompts-btn">Import Prompts</button>
     <input type="file" id="import-file-input" accept=".json" hidden>
@@ -398,21 +399,6 @@ Use {} for a variable; Shift+Enter for multiple lines" rows="2"></textarea>
             reader.readAsText(file);
         }
   
-        const importPromptsBtn = document.getElementById('import-prompts-btn');
-        const importFileInput = document.getElementById('import-file-input');
-
-        importPromptsBtn.onclick = function() {
-            importFileInput.click();
-        };
-
-        importFileInput.onchange = function() {
-            if (this.files.length > 0) {
-                importPrompts(this.files[0]);
-            }
-        };
-
-
-
     </script>
   </body>
 </html>
