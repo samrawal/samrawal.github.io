@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://samrawal.com/apps/focustxt/cloudicon.ico">
+    <title>focus.txt</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #taskContainer {
+            width: 90%;
+            height: 80vh;
+            font-family: "San Francisco", Consolas, mono;
+            font-size: 1.7em;
+            border: none;
+            outline: none;
+            overflow: auto;
+            padding: 5%;
+            box-sizing: border-box;
+            margin: 5% auto;
+        }
+        .task {
+            color: red;
+        }
+        .done {
+            color: lightgrey;
+        }
+        .notes {
+            color: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div id="taskContainer" contenteditable></div>
+    <script>
+        const taskContainer = document.getElementById('taskContainer');
+        const savedText = localStorage.getItem('taskText');
+      let defaultText = `
+# notes <br>
+- ☁️ welcome to focus.txt! <br>
+- focus is a simple, ephemeral daily planner. <br>
+- add notes here! <br>
+
+<br> # tasks <br>
+- add tasks here!
+- when you are done, move them below. <br>
+- everything is stored locally - no information is shared anywhere. <br>
+- your changes will be auto-saved! <br>
+<br><br>
+# done <br>
+- completed tasks or notes go here. <br>
+- hint: if colors don't auto-update, hit refresh!
+`
+
+        if (savedText && savedText.trim() !== "") {
+            taskContainer.innerHTML = savedText;
+        } else {
+	    taskContainer.innerHTML = defaultText;
+            //taskContainer.innerHTML = "<pre># tasks<br>- <br><br># done<br>- <br><br># notes<br>- </pre>";
+        }
+
+        if (taskContainer.textContent.trim() == "") {
+	    taskContainer.innerHTML = defaultText;
+            //taskContainer.innerHTML = "<pre># notes<br>- <br><br># tasks<br>- <br><br># done<br>- <br><br></pre>";
+        }
+
+        taskContainer.addEventListener('input', () => {
+            const text = taskContainer.innerHTML;
+            localStorage.setItem('taskText', text);
+        });
+
+
+        taskContainer.addEventListener('blur', updateColors);
+
+        function updateColors() {
+            const lines = taskContainer.innerText.split('\n');
+            let inTasks = false;
+            let inDone = false;
+            let inNotes = false;
+
+            let coloredText = '';
+
+            for (const line of lines) {
+                if (line.trim() === '# tasks') {
+                    inTasks = true;
+                    inDone = false;
+                    inNotes = false;
+                } else if (line.trim() === '# done') {
+                    inTasks = false;
+                    inDone = true;
+                    inNotes = false;
+                } else if (line.trim() === '# notes') {
+                    inTasks = false;
+                    inDone = false;
+                    inNotes = true;
+                }
+
+                if (inTasks && line.trim() !== '# tasks') {
+                    coloredText += '<span class="task">' + line + '</span><br>';
+                } else if (inDone && line.trim() !== '# done') {
+                    coloredText += '<span class="done">' + line + '</span><br>';
+                } else if (inNotes && line.trim() !== '# notes') {
+                    coloredText += '<span class="notes">' + line + '</span><br>';
+                } else {
+                    coloredText += line + '<br>';
+                }
+            }
+
+            taskContainer.innerHTML = "<pre>" + coloredText + "</pre>";
+        }
+
+        updateColors();
+    </script>
+</body>
+</html>
