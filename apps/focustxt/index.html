@@ -46,6 +46,16 @@
         taskContainer.addEventListener('keydown', (event) => {
             if (event.key === 'Enter' && !event.shiftKey) {
                 event.preventDefault();
+		                // Insert space character
+                document.execCommand('insertText', false, ' ');
+
+                // Move cursor one position to the left
+                const selection = window.getSelection();
+                const range = selection.getRangeAt(0);
+                range.setStart(range.startContainer, range.startOffset - 1);
+                range.collapse(true);
+                selection.removeAllRanges();
+                selection.addRange(range);
                 document.execCommand('insertLineBreak');
             }
         });
@@ -84,10 +94,10 @@
         taskContainer.addEventListener('input', () => {
             const text = taskContainer.innerHTML;
             localStorage.setItem('taskText', text);
-	    clearTimeout(timeoutId);
-		timeoutId = setTimeout(() => {
-		    location.reload();
-		}, 7000); // 7 seconds
+	    //clearTimeout(timeoutId);
+		//timeoutId = setTimeout(() => {
+		    //location.reload();
+		//}, 7000); // 7 seconds
 
         });
 
