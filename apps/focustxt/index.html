@@ -40,6 +40,16 @@
     <div id="taskContainer" contenteditable></div>
     <script>
         const taskContainer = document.getElementById('taskContainer');
+        // Override the default behavior of the "Enter" key
+        taskContainer.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                document.execCommand('insertLineBreak');
+            }
+        });
+
+
+
         const savedText = localStorage.getItem('taskText');
       let defaultText = `# notes <br>
 - ☁️ welcome to focus.txt! <br>
@@ -74,7 +84,7 @@
             localStorage.setItem('taskText', text);
         });
 
-
+ 
 
         taskContainer.addEventListener('blur', updateColors);
 
@@ -102,7 +112,7 @@
                 }
 
 		if (line.trim().length === 0) {
-		    continue
+		    continue;
 		}
 
                 if (inTasks && line.trim() !== '# tasks') {
