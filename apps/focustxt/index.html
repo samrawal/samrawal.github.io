@@ -40,6 +40,8 @@
     <div id="taskContainer" contenteditable></div>
     <script>
         const taskContainer = document.getElementById('taskContainer');
+        let timeoutId = null;
+
         // Override the default behavior of the "Enter" key
         taskContainer.addEventListener('keydown', (event) => {
             if (event.key === 'Enter' && !event.shiftKey) {
@@ -82,11 +84,16 @@
         taskContainer.addEventListener('input', () => {
             const text = taskContainer.innerHTML;
             localStorage.setItem('taskText', text);
+	    clearTimeout(timeoutId);
+		timeoutId = setTimeout(() => {
+		    location.reload();
+		}, 7000); // 7 seconds
+
         });
 
- 
+     
 
-        taskContainer.addEventListener('blur', updateColors);
+     taskContainer.addEventListener('blur', updateColors);
 
         function updateColors() {
             const lines = taskContainer.innerText.split('\n');
