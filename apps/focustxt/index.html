@@ -75,7 +75,7 @@
 - focus is a simple, ephemeral daily planner. <br>
 - add notes here! <br>
 - enter variables with the format %VARIABLE%: <br>
-&nbsp;&nbsp; - currently supported variables: date
+&nbsp;&nbsp; - currently supported variables: date, check
 
 <br> # tasks <br>
 - add tasks here!
@@ -112,6 +112,9 @@
 	     if(taskContainer.innerHTML.includes('%date%')) {
 		 const currentDate = formatDate(new Date());
 		 insert_special('%date%;', currentDate);
+	     }
+	     if(taskContainer.innerHTML.includes('%check%')) {
+		 insert_special('%check%;', "✅");
 	     }
 	     localStorage.setItem('taskText', text);
 	     //clearTimeout(timeoutId);
