@@ -43,9 +43,16 @@
         const taskContainer = document.getElementById('taskContainer');
         let timeoutId = null;
 
-        // Override the default behavior of the "Enter" key
-        taskContainer.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' && !event.shiftKey) {
+        function formatDate(date) {
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            return `${month}/${day}/${year}`;
+        }
+
+     // Override the default behavior of the "Enter" key
+     taskContainer.addEventListener('keydown', (event) => {
+         if (event.key === 'Enter' && !event.shiftKey) {
                 event.preventDefault();
 		                // Insert space character
                 document.execCommand('insertText', false, ' ');
@@ -92,9 +99,29 @@
             //taskContainer.innerHTML = "<pre># notes<br>- <br><br># tasks<br>- <br><br># done<br>- <br><br></pre>";
         }
 
+     function insert_special(original, replacement) {
+	    const selection = window.getSelection();
+	    const range = selection.getRangeAt(0);
+	    range.setStart(range.startContainer, range.startOffset - original.length);
+	    range.deleteContents();
+
+	    // Insert the current date
+	    document.execCommand('insertText', false, " " + replacement);
+	 
+     }
+
         taskContainer.addEventListener('input', () => {
             const text = taskContainer.innerHTML;
+
+	                // Check if the innerHTML contains the string "%date%"
+            if (taskContainer.innerHTML.includes('%date%')) {
+                const currentDate = formatDate(new Date());
+		insert_special('%date%;', currentDate);
+            }
+
             localStorage.setItem('taskText', text);
+
+
 	    //clearTimeout(timeoutId);
 		//timeoutId = setTimeout(() => {
 		    //location.reload();
