@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" type="image/x-icon" href="https://samrawal.com/apps/focustxt/cloudicon.ico">
-	<title>focus.txt</title>
+	<title>help | focus.txt</title>
 	<style>
 	 body {
 	     margin: 0;
@@ -32,7 +32,7 @@
 	 }
 
 	 .done {
-	     color: lightgrey;
+	     color: grey;
 	 }
 
 	 .notes {
@@ -69,23 +69,26 @@
 
 	<script>
 	 const taskContainer = document.getElementById('taskContainer');
+
 	 let defaultText = `# notes <br>
 - ☁️ welcome to focus.txt! <br>
 - focus is a simple, ephemeral daily planner. <br>
-- add notes here! <br>
-- enter variables with the format %VARIABLE%: <br>
-&nbsp;&nbsp; - currently supported variables: date, check, quote <br>
-<br> # tasks <br>
-- add tasks here!
-- when you are done, move them below. <br>
-- everything is stored locally - no data is uploaded. <br>
-- your changes will be auto-saved! <br>
+- made by me: <br>
+&nbsp;&nbsp; - sam rawal | samrawal.com | twitter.com/samarthrawal <br>
 
-<br> # done <br>
-- completed tasks or notes go here. <br>
-← want to re-sync colors? Click anywhere to the left! <br>
-- To get to this welcome text again, delete everything and refresh :) <br>
-	 `
+# full featureset <br>
+- Variables (use format %VARIABLE%): <br>
+&nbsp;&nbsp; - currently supported variables: date, check, quote <br>
+- Export to .txt <br>
+- All data auto-saved via local storage <br>
+- Auto-bulleting <br>
+
+# tasks <br>
+- please reach out with any suggestions, comments, or feedback! <br>
+- me@samrawal.com | twitter.com/samarthrawal
+`
+
+	  
 	  taskContainer.innerHTML = "<i>This is the help page. <a href=\"../index.html\">Go back to the main page</a> for your editable doc!<i><hr>" + defaultText;
 
 	 function updateColors() {
@@ -99,7 +102,7 @@
 		     inTasks = true;
 		     inDone = false;
 		     inNotes = false;
-		 } else if(line.trim() === '# done') {
+		 } else if(line.trim() === '# full featureset') {
 		     inTasks = false;
 		     inDone = true;
 		     inNotes = false;
@@ -108,12 +111,9 @@
 		     inDone = false;
 		     inNotes = true;
 		 }
-		 if(line.trim().length === 0) {
-		     continue;
-		 }
 		 if(inTasks && line.trim() !== '# tasks') {
 		     coloredText += '<span class="task">' + line + '</span><br>';
-		 } else if(inDone && line.trim() !== '# done') {
+		 } else if(inDone && line.trim() !== '# full featureset') {
 		     coloredText += '<span class="done">' + line + '</span><br>';
 		 } else if(inNotes && line.trim() !== '# notes') {
 		     coloredText += '<span class="notes">' + line + '</span><br>';
