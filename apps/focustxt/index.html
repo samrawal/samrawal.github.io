@@ -139,11 +139,11 @@
 	     if(taskContainer.innerHTML.includes('%check%')) {
 		 insert_special('%check%;', "✅");
 	     }
-
-	     if(taskContainer.innerHTML.includes('%help%')) {
-		 alert("Help menu coming soon!");
-		 insert_special('%help%;', "");
+	     if(taskContainer.innerHTML.includes('%quote%')) {
+		 var quote = getRandomMotivationalPhrase();
+		 insert_special('%quote%;', quote);
 	     }
+
 	     localStorage.setItem('taskText', text);
 	     //clearTimeout(timeoutId);
 	     //timeoutId = setTimeout(() => {
@@ -211,6 +211,33 @@ downloadButton.addEventListener('click', downloadAsTxt);
 	 function help(){
 	    window.open('help.html', '_blank');
 	}
+function getRandomMotivationalPhrase() {
+  const phrases = [
+    "Believe you can and you're halfway there.",
+    "Success is the sum of small efforts, repeated.",
+    "Don't watch the clock; do what it does.",
+    "Act as if what you do makes a difference.",
+    "Aim for the moon. If you miss, you may hit a star.",
+    "Action is the foundational key to all success.",
+    "Hardships often prepare people for an extraordinary destiny.",
+    "Success is not final, failure is not fatal.",
+    "Opportunities don't happen; you create them.",
+    "Believe in yourself and all that you are.",
+    "If you can dream it, you can do it.",
+    "Innovation distinguishes between a leader and a follower.",
+    "The road to success is always under construction.",
+    "Dream big and dare to fail.",
+    "Winning isn't everything, but wanting to win is.",
+    "You miss 100% of the shots you don't take.",
+    "It's not whether you get knocked down, it's whether you get up.",
+  ];
+
+  const randomIndex = Math.floor(Math.random() * phrases.length);
+  return phrases[randomIndex];
+}
+
+console.log(getRandomMotivationalPhrase());
+
 
 	</script>
 </body>
