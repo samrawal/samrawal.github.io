@@ -81,6 +81,17 @@
 	 taskContainer.addEventListener('keydown', (event) => {
 	     if(event.key === 'Enter' && !event.shiftKey) {
 		 event.preventDefault();
+
+		// Get current line
+		const selection_line = window.getSelection();
+		const range_line = selection_line.getRangeAt(0);
+		const startNode = range_line.startContainer;
+		const textContent = startNode.textContent;
+		const startOffset = range_line.startOffset;
+		const lineStart = textContent.lastIndexOf('\n', startOffset - 1); // -1 because we don't want to get current position if it's a newline
+		const lineEnd = textContent.indexOf('\n', startOffset);
+			const currentLine = textContent.slice(lineStart + 1, lineEnd > -1 ? lineEnd : undefined).trim();
+
 		 // Insert space character
 		 document.execCommand('insertText', false, ' ');
 		 // Move cursor one position to the left
@@ -91,6 +102,12 @@
 		 selection.removeAllRanges();
 		 selection.addRange(range);
 		 document.execCommand('insertLineBreak');
+
+		// Insert "-" if current line starts with "-"
+		if (currentLine.startsWith("-")) {
+		    document.execCommand('insertText', false, '- ');
+		}
+
 	     }
 	 });
 	 const savedText = localStorage.getItem('taskText');
