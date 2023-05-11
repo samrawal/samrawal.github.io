@@ -103,8 +103,7 @@
 	     const range = selection.getRangeAt(0);
 	     range.setStart(range.startContainer, range.startOffset - original.length + 1);
 	     range.deleteContents();
-	     // Insert the current date
-	     document.execCommand('insertText', false, replacement);
+	     document.execCommand('insertText', false, " " + replacement);
 	 }
 	 taskContainer.addEventListener('input', () => {
 	     const text = taskContainer.innerHTML;
