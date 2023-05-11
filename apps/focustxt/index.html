@@ -171,10 +171,9 @@
 	 taskContainer.addEventListener('blur', updateColors);
 
 	    taskContainer.addEventListener('paste', (event) => {
-		// Do any other processing you need here...
-
-		// Blur the focus
-		taskContainer.blur();
+		setTimeout(() => {
+		    taskContainer.blur();
+		}, 0);
 	    });
 
 
