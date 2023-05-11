@@ -63,7 +63,7 @@
 </head>
 
 <body>
-	<div id="taskContainer" contenteditable></div>
+	<div id="taskContainer"</div>
 <button id="downloadButton" style="position: fixed; bottom: 20px; right: 70px;">download</button>
 <button id="downloadButton" onclick="help()" style="position: fixed; bottom: 20px; right: 20px;">?</button>
 
@@ -86,7 +86,7 @@
 ← want to re-sync colors? Click anywhere to the left! <br>
 - To get to this welcome text again, delete everything and refresh :) <br>
 	 `
-taskContainer.innerHTML = defaultText;
+	  taskContainer.innerHTML = "<i>This is the help page. <a href=\"../index.html\">Go back to the main page</a> for your editable doc!<i><hr>" + defaultText;
 
 	 function updateColors() {
 	     const lines = taskContainer.innerText.split('\n');

@@ -114,19 +114,16 @@
 	 let defaultText = `# notes <br>
 - ☁️ welcome to focus.txt! <br>
 - focus is a simple, ephemeral daily planner. <br>
-- add notes here! <br>
 - enter variables with the format %VARIABLE%: <br>
 &nbsp;&nbsp; - currently supported variables: date, check, quote <br>
 <br> # tasks <br>
 - add tasks here!
 - when you are done, move them below. <br>
-- everything is stored locally - no data is uploaded. <br>
-- your changes will be auto-saved! <br>
+- all your data is auto-saved and stored locally <br>
 
 <br> # done <br>
 - completed tasks or notes go here. <br>
-← want to re-sync colors? Click anywhere to the left! <br>
-- To get to this welcome text again, delete everything and refresh :) <br>
+- for this message + more features, hit the \`?\` button below :)
 	 `
 	 if(savedText && savedText.trim() !== "") {
 	     taskContainer.innerHTML = savedText;
@@ -175,7 +172,8 @@
 	     let inDone = false;
 	     let inNotes = false;
 	     let coloredText = '';
-	     for(const line of lines) {
+	     for(const line_ of lines) {
+		 line = line_.trimEnd();
 		 if(line.trim() === '# tasks') {
 		     inTasks = true;
 		     inDone = false;
@@ -199,7 +197,17 @@
 		 } else if(inNotes && line.trim() !== '# notes') {
 		     coloredText += '<span class="notes">' + line + '</span><br>';
 		 } else {
-		     coloredText += '<br>' + line + '<br>';
+		     //coloredText += '<br>' + line + '<br>';
+		     coloredText += '<br>' + line;
+		     if (inTasks) {
+			 coloredText += '<span class="task">&nbsp;</span><br>';
+		     }
+		     else if (inDone) {
+			 coloredText += '<span class="done">&nbsp;</span><br>';
+		     }
+		     else if (inNotes) {
+			 coloredText += '<span class="notes">&nbsp;</span><br>';
+		     }
 		 }
 	     }
 	     //taskContainer.innerHTML = "<pre>" + coloredText + "</pre>";
@@ -231,25 +239,25 @@ downloadButton.addEventListener('click', downloadAsTxt);
 function getRandomMotivationalPhrase() {
   const phrases = [
     "Believe you can and you're halfway there.",
-    "Success is the sum of small efforts, repeated.",
-    "Don't watch the clock; do what it does.",
+	 "Success is the sum of small efforts, repeated.",
+	 "Don't watch the clock; do what it does.",
     "Act as if what you do makes a difference.",
     "Aim for the moon. If you miss, you may hit a star.",
     "Action is the foundational key to all success.",
     "Hardships often prepare people for an extraordinary destiny.",
     "Success is not final, failure is not fatal.",
     "Opportunities don't happen; you create them.",
-    "Believe in yourself and all that you are.",
-    "If you can dream it, you can do it.",
-    "Innovation distinguishes between a leader and a follower.",
-    "The road to success is always under construction.",
-    "Dream big and dare to fail.",
-    "Winning isn't everything, but wanting to win is.",
+	 "Believe in yourself and all that you are.",
+	 "If you can dream it, you can do it.",
+	 "Innovation distinguishes between a leader and a follower.",
+	 "The road to success is always under construction.",
+	 "Dream big and dare to fail.",
+	 "Winning isn't everything, but wanting to win is.",
     "You miss 100% of the shots you don't take.",
-    "It's not whether you get knocked down, it's whether you get up.",
-  ];
+	 "It's not whether you get knocked down, it's whether you get up.",
+	 ];
 
-  const randomIndex = Math.floor(Math.random() * phrases.length);
+			 const randomIndex = Math.floor(Math.random() * phrases.length);
   return phrases[randomIndex];
 }
 
