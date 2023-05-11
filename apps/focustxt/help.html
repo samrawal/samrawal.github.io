@@ -69,32 +69,8 @@
 
 	<script>
 	 const taskContainer = document.getElementById('taskContainer');
-	 let timeoutId = null;
-
-	 function formatDate(date) {
-	     const day = date.getDate();
-	     const month = date.getMonth() + 1;
-	     const year = date.getFullYear();
-	     return `${month}/${day}/${year}`;
-	 }
-	 // Override the default behavior of the "Enter" key
-	 taskContainer.addEventListener('keydown', (event) => {
-	     if(event.key === 'Enter' && !event.shiftKey) {
-		 event.preventDefault();
-		 // Insert space character
-		 document.execCommand('insertText', false, ' ');
-		 // Move cursor one position to the left
-		 const selection = window.getSelection();
-		 const range = selection.getRangeAt(0);
-		 range.setStart(range.startContainer, range.startOffset - 1);
-		 range.collapse(true);
-		 selection.removeAllRanges();
-		 selection.addRange(range);
-		 document.execCommand('insertLineBreak');
-	     }
-	 });
-	 const savedText = localStorage.getItem('taskText');
-	 let defaultText = `# notes <br>
+	  let defaultText = `This is a help page, not your editable doc! Return to the previous page to edit. <hr>
+# notes <br>
 - ☁️ welcome to focus.txt! <br>
 - focus is a simple, ephemeral daily planner. <br>
 - add notes here! <br>
@@ -111,46 +87,7 @@
 ← want to re-sync colors? Click anywhere to the left! <br>
 - To get to this welcome text again, delete everything and refresh :) <br>
 	 `
-	 if(savedText && savedText.trim() !== "") {
-	     taskContainer.innerHTML = savedText;
-	 } else {
-	     taskContainer.innerHTML = defaultText;
-	     //taskContainer.innerHTML = "<pre># tasks<br>- <br><br># done<br>- <br><br># notes<br>- </pre>";
-	 }
-	 if(taskContainer.textContent.trim() == "") {
-	     taskContainer.innerHTML = defaultText;
-	     //taskContainer.innerHTML = "<pre># notes<br>- <br><br># tasks<br>- <br><br># done<br>- <br><br></pre>";
-	 }
-
-	 function insert_special(original, replacement) {
-	     const selection = window.getSelection();
-	     const range = selection.getRangeAt(0);
-	     range.setStart(range.startContainer, range.startOffset - original.length + 1);
-	     range.deleteContents();
-	     document.execCommand('insertText', false, " " + replacement);
-	 }
-	 taskContainer.addEventListener('input', () => {
-	     const text = taskContainer.innerHTML;
-	     // Check if the innerHTML contains the string "%date%"
-	     if(taskContainer.innerHTML.includes('%date%')) {
-		 const currentDate = formatDate(new Date());
-		 insert_special('%date%;', currentDate);
-	     }
-	     if(taskContainer.innerHTML.includes('%check%')) {
-		 insert_special('%check%;', "✅");
-	     }
-
-	     if(taskContainer.innerHTML.includes('%help%')) {
-		 alert("Help menu coming soon!");
-		 insert_special('%help%;', "");
-	     }
-	     localStorage.setItem('taskText', text);
-	     //clearTimeout(timeoutId);
-	     //timeoutId = setTimeout(() => {
-	     //location.reload();
-	     //}, 7000); // 7 seconds
-	 });
-	 taskContainer.addEventListener('blur', updateColors);
+taskContainer.innerHTML = defaultText;
 
 	 function updateColors() {
 	     const lines = taskContainer.innerText.split('\n');
@@ -185,32 +122,9 @@
 		     coloredText += '<br>' + line + '<br>';
 		 }
 	     }
-	     //taskContainer.innerHTML = "<pre>" + coloredText + "</pre>";
 	     taskContainer.innerHTML = "<p style=\"font-family: 'San Francisco', Consolas, monospace;\">" + coloredText + "</p>";
 	 }
 	 updateColors();
-function downloadAsTxt() {
-  const content = taskContainer.innerText;
-  const filename = 'focus.txt';
-  const contentType = 'text/plain;charset=utf-8';
-
-  const a = document.createElement('a');
-  const file = new Blob([content], { type: contentType });
-
-  a.href = URL.createObjectURL(file);
-  a.download = filename;
-  a.style.display = 'none';
-
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-}
-const downloadButton = document.getElementById('downloadButton');
-downloadButton.addEventListener('click', downloadAsTxt);
-
-	 function help(){
-	    window.open('/help.html', '_blank');
-	}
 
 	</script>
 </body>
