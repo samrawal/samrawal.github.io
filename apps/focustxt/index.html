@@ -115,7 +115,7 @@
 - ☁️ welcome to focus.txt! <br>
 - focus is a simple, ephemeral daily planner. <br>
 - enter variables with the format %VARIABLE%: <br>
-&nbsp;&nbsp; - currently supported variables: date, check, quote <br>
+&nbsp;&nbsp; - currently supported variables: date, time, check, quote <br>
 <br> # tasks <br>
 - add tasks here!
 - when you are done, move them below. <br>
@@ -149,6 +149,10 @@
 	     if(taskContainer.innerHTML.includes('%date%')) {
 		 const currentDate = formatDate(new Date());
 		 insert_special('%date%;', currentDate);
+	     }
+	     if(taskContainer.innerHTML.includes('%time%')) {
+		 const currentTime = getCurrentTimeFormatted();
+		 insert_special('%time%;', currentTime);
 	     }
 	     if(taskContainer.innerHTML.includes('%check%')) {
 		 insert_special('%check%;', "✅");
@@ -260,6 +264,28 @@ function getRandomMotivationalPhrase() {
 			 const randomIndex = Math.floor(Math.random() * phrases.length);
   return phrases[randomIndex];
 }
+function getCurrentTimeFormatted() {
+  const currentTime = new Date();
+  let hours = currentTime.getHours();
+  let minutes = currentTime.getMinutes();
+  let meridiem = 'am';
+
+  if (hours >= 12) {
+    meridiem = 'pm';
+    if (hours > 12) {
+      hours -= 12;
+    }
+  }
+
+  if (minutes < 10) {
+    minutes = '0' + minutes;
+  }
+
+  const formattedTime = `${hours}:${minutes}${meridiem}`;
+  return formattedTime;
+}
+
+
 
 console.log(getRandomMotivationalPhrase());
 
