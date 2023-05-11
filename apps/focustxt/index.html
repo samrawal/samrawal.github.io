@@ -71,10 +71,12 @@
 
 
         const savedText = localStorage.getItem('taskText');
-      let defaultText = `# notes <br>
+     let defaultText = `# notes <br>
 - ☁️ welcome to focus.txt! <br>
 - focus is a simple, ephemeral daily planner. <br>
 - add notes here! <br>
+- enter variables with the format %VARIABLE%: <br>
+&nbsp;&nbsp; - currently supported variables: date
 
 <br> # tasks <br>
 - add tasks here!
@@ -85,10 +87,10 @@
 <br> # done <br>
 - completed tasks or notes go here. <br>
 ← want to re-sync colors? Click anywhere to the left!
-`
+     `
 
-        if (savedText && savedText.trim() !== "") {
-            taskContainer.innerHTML = savedText;
+     if (savedText && savedText.trim() !== "") {
+         taskContainer.innerHTML = savedText;
         } else {
 	    taskContainer.innerHTML = defaultText;
             //taskContainer.innerHTML = "<pre># tasks<br>- <br><br># done<br>- <br><br># notes<br>- </pre>";
@@ -102,18 +104,18 @@
      function insert_special(original, replacement) {
 	    const selection = window.getSelection();
 	    const range = selection.getRangeAt(0);
-	    range.setStart(range.startContainer, range.startOffset - original.length);
+	    range.setStart(range.startContainer, range.startOffset - original.length +1);
 	    range.deleteContents();
 
 	    // Insert the current date
-	    document.execCommand('insertText', false, " " + replacement);
+	    document.execCommand('insertText', false, replacement);
 	 
      }
 
         taskContainer.addEventListener('input', () => {
             const text = taskContainer.innerHTML;
 
-	                // Check if the innerHTML contains the string "%date%"
+		    // Check if the innerHTML contains the string "%date%"
             if (taskContainer.innerHTML.includes('%date%')) {
                 const currentDate = formatDate(new Date());
 		insert_special('%date%;', currentDate);
