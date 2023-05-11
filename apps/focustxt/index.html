@@ -170,6 +170,14 @@
 	 });
 	 taskContainer.addEventListener('blur', updateColors);
 
+	    taskContainer.addEventListener('paste', (event) => {
+		// Do any other processing you need here...
+
+		// Blur the focus
+		taskContainer.blur();
+	    });
+
+
 	 function updateColors() {
 	     const lines = taskContainer.innerText.split('\n');
 	     let inTasks = false;
