@@ -300,7 +300,7 @@ function unescapeString(str) {
 
 
       function copyToClipboard(text_) {
-        text = escapeString(text_)
+        //text = escapeString(text_)
         var tempInput = document.createElement("textarea");
         tempInput.value = text;
         tempInput.value = unescapeString(text);
