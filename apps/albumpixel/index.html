@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AlbumPixel</title>
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div id="header">
+        <center>
+            <h1><span style="color:darkorange">Album</span> <span style="color:teal">Pixel</span></h1>
+            <p id='subheading' style="font-family: 'Reddit Mono';"><span style="color:blue">macOS widget</span> that shows off your <span style="color:darkgreen">Spotify</span> album art... <span style="color:orange">pixelated</span> </p>
+        </center>
+            <div id="image-container">
+                <center>
+                <img src="./images/icon.png" alt="AlbumPixel Icon">
+                </center>
+              </div>
+        </div>
+        <script>
+            let images = [
+                './images/beatles.png', 
+                './images/oasis.png',
+                './images/pinkfloyd.png',
+                './images/dylan.png', 
+                './images/icon.png',
+            ]; // add your images here
+            let currentIndex = 0;
+            let imageContainer = document.getElementById('image-container');
+
+            setInterval(function() {
+            let img = document.querySelector('#image-container img');
+            img.classList.add('fade-out');
+            setTimeout(function() {
+                img.src = images[currentIndex];
+                img.classList.remove('fade-out');
+                currentIndex = (currentIndex + 1) % images.length;
+            }, 500);
+            }, 3000);
+        </script>
+        <center>
+        <p><a href="./AlbumPixel.zip">download for macOS</a></p>
+        <br>
+        <hr style="width:30%">
+        <br>
+            <p>by sam rawal</p>
+            <p><a href="https://samrawal.com" target="_blank">samrawal.com</a> | <a href="https://twitter.com/samarthrawal">@samarthrawal</a></p>
+        </center>
+    </body>
+</html>

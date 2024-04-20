@@ -1,0 +1,41 @@
+#header {
+    padding-top: 1%;
+}
+h1 {
+    font-family: 'Reddit Mono', monospace;
+    font-size: 3.5em;
+}
+
+p {
+    font-family: 'Reddit Mono', monospace;
+    font-size: 1.2em;
+}
+
+#subheading {
+    color: #666;
+}
+/* Default width for desktop */
+img {
+    width: 35%;
+  }
+  
+  /* Override width for mobile devices */
+  @media only screen and (max-width: 768px) {
+    img {
+      width: 75%;
+    }
+  }
+#image-container {
+    position: relative;
+  }
+  
+  #image-container img {
+    /* position: absolute; */
+    top: 0;
+    left: 0;
+    transition: opacity 0.5s;
+  }
+  
+  #image-container img.fade-out {
+    opacity: 0;
+  }
