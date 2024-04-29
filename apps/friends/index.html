@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FriendsLog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+
+<style>
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+    input, button {
+        font-size: 16px;
+        padding: 10px;
+        margin: 5px;
+    }
+    #friendsList {
+        margin-top: 20px;
+        padding: 0% 20% 0% 20%;
+        font-family: 'Open Sans', sans-serif;
+    }
+    .friend {
+        margin-bottom: 5px;
+        cursor: pointer;
+    }
+    .dark-yellow {
+    color: darkgoldenrod;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .remove {
+        background-color: transparent;
+        border: 100px;
+    }
+    .pacifico-regular {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+p, input {
+    font-family: 'Indie Flower';
+    font-size: 1.2em;
+}
+button {
+    border-radius: 10px;
+    background-color: lightblue;
+    border-width: 2px;
+    padding: 10px;
+}
+
+    h1 {
+        font-family: 'Pacifico', cursive;
+        color: darkorange;
+    }
+
+    #explain {
+        font-size: .9em;
+        font-family: monospace;
+    }
+    
+    img {
+        padding-top: 5%;
+        padding-bottom: -50%;
+        width: 20%;
+        /* padding: -50px; */
+    }
+    @media (max-width: 600px) {
+        img {
+            width: 30%;
+        }
+    }
+</style>
+</head>
+<body>
+    <center>
+        <img src="./friendslog.png" />
+        <h1>friends log</h1>
+    <p>Talked with
+    <input type="text" id="nameInput" placeholder="name" style="height: 20px; width: 10ch;">
+    <input type="number" id="daysAgoInput" placeholder="" min="0" value="0" style="width: 4ch; height: 20px">
+    days ago 
+    </p>
+    <button onclick="addOrUpdateFriend()">Update List</button>
+    </center>
+    <!-- <hr width="40%" style="margin-top: 2em"> -->
+    <div id="explain">
+        <center>
+        <p>- <i>Your friend list will display below. Ordered by <mark>least recent ➡ most recent</mark>.</i></p>
+        <p>- <i><mark>Click on a name</mark> to mark as "talked today". Click on ❌ to remove from list.</i></p>
+        <p>- <i>Data is <mark>100% local</mark>, so each list is specific to a device/browser.</i></p>
+        </center>
+    </div>
+    <hr width="40%" style="margin-top: 2em;">
+    <div id="friendsList"> </div>
+    
+
+    <script>
+        // Function to add or update a friend based on the days ago input
+function addOrUpdateFriend() {
+    const nameInput = document.getElementById('nameInput');
+    const daysAgoInput = document.getElementById('daysAgoInput');
+    const name = nameInput.value.trim();
+    const daysAgo = parseInt(daysAgoInput.value) || 0;
+
+    if (name) {
+        const friends = getFriends();
+        const nameLower = name.toLowerCase();
+        const date = new Date();
+        date.setDate(date.getDate() - daysAgo); // Adjust the date based on the days ago input
+
+        friends[nameLower] = date.toISOString();
+        localStorage.setItem('friends', JSON.stringify(friends));
+        displayFriends();
+        nameInput.value = ''; // Clear the input after adding/updating
+        daysAgoInput.value = '0'; // Reset days ago input to default
+    }
+}
+        // Function to display all friends
+        // Function to display all friends
+function displayFriends() {
+    const friendsList = document.getElementById('friendsList');
+    friendsList.innerHTML = '';
+    const friends = getFriends();
+
+    // Convert friends object to array and sort by last contact
+    const sortedFriends = Object.keys(friends).map(key => ({
+        name: key,
+        date: new Date(friends[key])
+    })).sort((a, b) => a.date - b.date);
+
+    // Display each friend in the list
+    sortedFriends.forEach(friend => {
+        const daysAgo = Math.floor((new Date() - friend.date) / (1000 * 60 * 60 * 24));
+        const friendElem = document.createElement('div');
+        friendElem.className = 'friend';
+
+        // Create the remove button
+        const removeButton = document.createElement('button');
+        removeButton.className = 'remove';
+        removeButton.textContent = '❌';
+        removeButton.style.color = 'red';
+        removeButton.style.marginRight = '10px';
+        removeButton.onclick = function(event) {
+            event.stopPropagation(); // Prevent triggering the click on the friend element
+            if (confirm(`Remove ${friend.name} from the list?`)) {
+                removeFriend(friend.name);
+            }
+        };
+
+        friendElem.appendChild(removeButton);
+        const friendText = document.createElement('span');
+        friendText.textContent = `${friend.name} (${daysAgo} days ago)`;
+        friendElem.appendChild(friendText);
+
+        // Apply color coding based on the days ago
+        if (daysAgo >= 30) {
+            friendElem.classList.add('red');
+        } else if (daysAgo >= 15) {
+            friendElem.classList.add('dark-yellow');
+        }
+
+        friendElem.onclick = function() {
+            if (confirm(`Log conversation with ${friend.name} today?`)) {
+                const friends = getFriends();
+                friends[friend.name] = new Date().toISOString();
+                localStorage.setItem('friends', JSON.stringify(friends));
+                displayFriends();
+            }
+        };
+
+        friendsList.appendChild(friendElem);
+    });
+}
+
+// Function to remove a friend
+function removeFriend(name) {
+    const friends = getFriends();
+    delete friends[name.toLowerCase()];
+    localStorage.setItem('friends', JSON.stringify(friends));
+    displayFriends();
+}
+        // Function to retrieve friends from localStorage
+        function getFriends() {
+            const friendsRaw = localStorage.getItem('friends');
+            return friendsRaw ? JSON.parse(friendsRaw) : {};
+        }
+
+        // Initial display of friends when the page loads
+        displayFriends();
+    </script>
+<footer style="padding-top: 40%;">
+
+    <center>
+        <hr style="width: 40%">
+    <p style="font-size: 0.9em;">a small app by sam rawal | <a href="https://samrawal.com">samrawal.com</a> | <a href="https://twitter.com/samarthrawal">@samarthrawal</a></p>
+    </center>
+</footer>
+</body>
+</html>
