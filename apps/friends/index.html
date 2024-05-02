@@ -205,6 +205,16 @@ function removeFriend(name) {
 
         // Initial display of friends when the page loads
         displayFriends();
+        
+        
+        window.addEventListener("visibilitychange", function () {
+      console.log("Visibility changed");
+      if (document.visibilityState === "visible") {
+        console.log("APP resumed");
+        window.location.reload();
+      }
+    });
+
     </script>
 
 <footer style="padding-top: 1em;">
