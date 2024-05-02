@@ -31,8 +31,9 @@
         font-family: 'Open Sans', sans-serif;
     }
     .friend {
-        margin-bottom: 5px;
+        margin-bottom: -10px;
         cursor: pointer;
+        /* line-height: 1.0em; */
     }
     .dark-yellow {
     color: darkgoldenrod;
@@ -68,9 +69,11 @@ button {
     }
 
     #explain {
-        font-size: .8em;
+        font-size: .7em;
         color: grey;
         font-family: monospace;
+        line-height: 1.5em;
+        padding-top: 2em;
     }
     
     img {
@@ -98,6 +101,9 @@ button {
     <button onclick="addOrUpdateFriend()">Update List</button>
     </center>
     <!-- <hr width="40%" style="margin-top: 2em"> -->
+    <div id="friendsList"> </div>
+    
+    <hr width="40%" style="margin-top: 2em;">
     <div id="explain">
         <center>
         <p>- <i>Your friend list will display below. Ordered by <mark>least recent ➡ most recent</mark>.</i></p>
@@ -105,9 +111,6 @@ button {
         <p>- <i>Data is <mark>100% local</mark>, so each list is specific to a device/browser.</i></p>
         </center>
     </div>
-    <hr width="40%" style="margin-top: 2em;">
-    <div id="friendsList"> </div>
-    
 
     <script>
         // Function to add or update a friend based on the days ago input
@@ -203,10 +206,10 @@ function removeFriend(name) {
         // Initial display of friends when the page loads
         displayFriends();
     </script>
-<footer style="padding-top: 40%;">
 
+<footer style="padding-top: 1em;">
     <center>
-        <hr style="width: 40%">
+        <hr style="width: 40%;">
     <p style="font-size: 0.9em;">a small app by sam rawal | <a href="https://samrawal.com">samrawal.com</a> | <a href="https://twitter.com/samarthrawal">@samarthrawal</a></p>
     </center>
 </footer>
