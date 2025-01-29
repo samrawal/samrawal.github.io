@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>JSON Annotator</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%; /* Fill the browser height */
+      font-family: sans-serif;
+    }
+
+    /* Dropzone style */
+    #dropzone {
+      border: 2px dashed #aaa;
+      border-radius: 10px;
+      width: 300px;
+      height: 200px;
+      text-align: center;
+      line-height: 200px;
+      margin: 20px auto;
+      color: #aaa;
+      transition: opacity 0.3s;
+    }
+
+    /* Make buttons bigger and rounded corners */
+    button {
+      min-height: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 10px; 
+      border: 1px solid #999;
+    }
+
+    /* Navigation bar */
+    #navbar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px;
+    }
+    #prevBtn, #nextBtn {
+      background-color: #e1f3fb; /* softer light blue */
+    }
+
+    /* Annotation button bar */
+    #annotation-bar {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+    /* 1 -> lighter red, 2 -> lighter green, 3 -> lighter purple */
+    #btn-1 {
+      background-color: #ffd8d8;
+    }
+    #btn-2 {
+      background-color: #ddffdd;
+    }
+    #btn-3 {
+      background-color: #f0e1ff;
+    }
+
+    /* Main container for two columns */
+    #viewer-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 20px;
+      /* Fill remaining vertical space (adjust 330px if needed) */
+      height: calc(100vh - 330px);
+      margin: 0 20px 20px 20px;
+    }
+
+    /* Two-column styling */
+    #left-col, #right-col {
+      border: 1px solid #ccc;
+      padding: 10px;
+      flex: 1;
+      box-sizing: border-box;
+      white-space: pre-wrap;
+      overflow-y: auto; /* Make each column scrollable */
+    }
+
+    /* Monospace styling for plan tuples */
+    .plan-array {
+      font-family: monospace;
+      background-color: #eee;
+      padding: 5px;
+      margin-bottom: 4px;
+      border-radius: 5px;
+    }
+
+    /* Bottom bar (including "Clear All" and "Completed Annotations") */
+    #bottom-bar {
+      display: flex;
+      justify-content: space-between;
+      margin: 0 20px 20px 20px;
+      align-items: center;
+    }
+    #clear-all-btn {
+      padding: 6px 12px;
+    }
+    #completed-annotations {
+      font-weight: bold;
+    }
+    /* Export button at bottom (left by default) */
+    #export-btn {
+      padding: 8px 16px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="dropzone">Drop JSON file here</div>
+
+  <div id="navbar">
+    <button id="prevBtn">Previous</button>
+    <span id="indexDisplay">0</span>
+    <button id="nextBtn">Next</button>
+  </div>
+
+  <!-- Annotation Buttons -->
+  <div id="annotation-bar">
+    <button id="btn-1">1 - Incorrect Parse</button>
+    <button id="btn-2">2 - Correct Parse</button>
+    <button id="btn-3">3 - Low-Quality Data</button>
+  </div>
+
+  <div id="viewer-container">
+    <div id="left-col"></div>
+    <div id="right-col"></div>
+  </div>
+
+  <!-- Bottom Bar: Export on the left, Clear All on the right, plus annotation count -->
+  <div id="bottom-bar">
+    <div>
+      <button id="export-btn">Export</button>
+    </div>
+    <div id="completed-annotations">Completed Annotations: 0</div>
+    <div>
+      <button id="clear-all-btn">Clear all data</button>
+    </div>
+  </div>
+
+  <script>
+    let dataList = [];
+    let currentIndex = 0;
+
+    const dropzone       = document.getElementById('dropzone');
+    const leftCol        = document.getElementById('left-col');
+    const rightCol       = document.getElementById('right-col');
+    const indexDisplay   = document.getElementById('indexDisplay');
+    const prevBtn        = document.getElementById('prevBtn');
+    const nextBtn        = document.getElementById('nextBtn');
+    const btn1           = document.getElementById('btn-1');
+    const btn2           = document.getElementById('btn-2');
+    const btn3           = document.getElementById('btn-3');
+    const exportBtn      = document.getElementById('export-btn');
+    const clearAllBtn    = document.getElementById('clear-all-btn');
+    const completedSpan  = document.getElementById('completed-annotations');
+
+    // Store annotations in localStorage under this key
+    const LOCAL_STORAGE_KEY = 'annotationMap';
+
+    // Attempt to load existing annotations from localStorage (if present)
+    let annotations = {};
+    try {
+      const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (stored) {
+        annotations = JSON.parse(stored);
+      }
+    } catch (err) {
+      console.error('Error parsing localStorage annotations:', err);
+    }
+
+    // ===== DRAG & DROP =====
+    dropzone.addEventListener('dragover', (event) => {
+      event.preventDefault();
+      dropzone.style.backgroundColor = '#eef';
+    });
+    dropzone.addEventListener('dragleave', () => {
+      dropzone.style.backgroundColor = '';
+    });
+    dropzone.addEventListener('drop', (event) => {
+      event.preventDefault();
+      dropzone.style.backgroundColor = '';
+      const file = event.dataTransfer.files[0];
+
+      if (file && file.type === "application/json") {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            dataList = JSON.parse(e.target.result);
+            currentIndex = 0;
+            displayItem();
+            updateCompletedCount();
+            // Hide the dropzone after successful load
+            dropzone.style.display = 'none';
+          } catch (err) {
+            alert("Error parsing JSON: " + err);
+          }
+        };
+        reader.readAsText(file);
+      } else {
+        alert("Please drop a valid JSON file.");
+      }
+    });
+
+    // ===== DISPLAY =====
+    function displayItem() {
+      if (!dataList.length) {
+        leftCol.textContent  = "No data loaded.";
+        rightCol.textContent = "";
+        indexDisplay.textContent = "0";
+        return;
+      }
+      const item = dataList[currentIndex];
+      // LEFT COLUMN: Prefer "original_fulltext" if present, else fallback to "body"
+      const apText = item.assessment_plan ?? item.body ?? "No A&P available.";
+
+      const fullText = item.original_fulltext ?? item.body ?? "No note available.";
+      leftCol.textContent = apText + "\n==========\nFULL TEXT\n==========\n" + fullText;
+
+      // RIGHT COLUMN: "plans" is an object { sectionName: [...], ... }
+      let plansHTML = "";
+      if (item.plans && typeof item.plans === "object") {
+        for (const [section, instructions] of Object.entries(item.plans)) {
+          plansHTML += `<h1>${section}</h1>`;
+          if (Array.isArray(instructions)) {
+            instructions.forEach(dict => {
+              for (const [verb, noun] of Object.entries(dict)) {
+                plansHTML += `<pre class="plan-array">(${verb}, ${noun})</pre>`;
+              }
+            });
+          }
+        }
+      } else {
+        plansHTML = "No 'plans' found in this item.";
+      }
+      rightCol.innerHTML = plansHTML;
+
+      // Update index display (1-based)
+      indexDisplay.textContent = (currentIndex + 1) + "/" + dataList.length;
+    }
+
+    // ===== NAVIGATION =====
+    function goPrev() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        displayItem();
+      }
+    }
+    function goNext() {
+      if (currentIndex < dataList.length - 1) {
+        currentIndex++;
+        displayItem();
+      }
+    }
+
+    prevBtn.addEventListener('click', goPrev);
+    nextBtn.addEventListener('click', goNext);
+
+    // ===== ANNOTATION =====
+    function annotate(value) {
+      if (!dataList.length) return;
+      const item = dataList[currentIndex];
+      const oid = item.original_index;
+      // Map original_index -> annotation
+      annotations[oid] = value;
+      // Store in localStorage
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(annotations));
+      updateCompletedCount();
+    }
+
+    function updateCompletedCount() {
+      const count = Object.keys(annotations).length;
+      completedSpan.textContent = `Completed Annotations: ${count}`;
+    }
+
+    // After labeling, go next if not at the end
+    function annotateAndNext(value) {
+      annotate(value);
+      if (currentIndex < dataList.length - 1) {
+        goNext();
+      }
+    }
+
+    btn1.addEventListener('click', () => annotateAndNext(1));
+    btn2.addEventListener('click', () => annotateAndNext(2));
+    btn3.addEventListener('click', () => annotateAndNext(3));
+
+    // ===== KEYBOARD SHORTCUTS =====
+    document.addEventListener('keydown', (e) => {
+      // If user is holding Ctrl/Alt/Meta, ignore (don't trigger invalid selection).
+      if (e.ctrlKey || e.altKey || e.metaKey) {
+        return;
+      }
+
+      // If there's no data loaded, do nothing:
+      if (!dataList.length) return;
+
+      // Allowed keys: ArrowLeft, ArrowRight, '1','2','3'
+      if (e.key === 'ArrowLeft') {
+        goPrev();
+      } else if (e.key === 'ArrowRight') {
+        goNext();
+      } else if (e.key === '1') {
+        annotateAndNext(1);
+      } else if (e.key === '2') {
+        annotateAndNext(2);
+      } else if (e.key === '3') {
+        annotateAndNext(3);
+      } else {
+        // Check if it's a single alphanumeric character:
+        if (/^[a-zA-Z0-9]$/.test(e.key)) {
+          alert("Invalid Selection");
+        }
+        // Otherwise ignore keys like Tab, Shift, etc.
+      }
+    });
+
+    // ===== EXPORT =====
+    exportBtn.addEventListener('click', () => {
+      // Convert the annotation map to text
+      // Format: "original_index,annotation"
+      let lines = [];
+      for (const [origIndex, annVal] of Object.entries(annotations)) {
+        lines.push(`${origIndex},${annVal}`);
+      }
+      const textContent = lines.join("\n");
+
+      // Create a Blob, create a link, and auto-click to download as .txt
+      const blob = new Blob([textContent], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'annotations.txt';  // Download as .txt
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // ===== CLEAR ALL DATA =====
+    clearAllBtn.addEventListener('click', () => {
+      const confirmMsg = "This will clear all annotation data stored locally. Are you sure?";
+      if (confirm(confirmMsg)) {
+        // Remove all local storage data
+        localStorage.clear();
+        // Also clear the in-memory object
+        annotations = {};
+        updateCompletedCount();
+      }
+    });
+
+    // Initialize
+    displayItem();
+    updateCompletedCount();
+  </script>
+</body>
+<footer ></footer>
+  <center>
+  <p style="font-size: 0.9em; color: grey;">simple annotator. contact sam if any questions!</p>
+  </center>
+  <br>
+</footer>
+</html>
