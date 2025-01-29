@@ -217,22 +217,28 @@
         indexDisplay.textContent = "0";
         return;
       }
-      const item = dataList[currentIndex];
-      // LEFT COLUMN: Prefer "original_fulltext" if present, else fallback to "body"
-      const apText = item.assessment_plan ?? item.body ?? "No A&P available.";
 
+      const item = dataList[currentIndex];
+      
+      // LEFT COLUMN: Show "assessment_plan" if present, else fallback
+      const apText   = item.assessment_plan ?? item.body ?? "No A&P available.";
       const fullText = item.original_fulltext ?? item.body ?? "No note available.";
       leftCol.textContent = apText + "\n==========\nFULL TEXT\n==========\n" + fullText;
 
-      // RIGHT COLUMN: "plans" is an object { sectionName: [...], ... }
+      // RIGHT COLUMN: Plans is an object { sectionName: [ [verb,noun], ... ], ... }
       let plansHTML = "";
       if (item.plans && typeof item.plans === "object") {
         for (const [section, instructions] of Object.entries(item.plans)) {
           plansHTML += `<h1>${section}</h1>`;
           if (Array.isArray(instructions)) {
-            instructions.forEach(dict => {
-              for (const [verb, noun] of Object.entries(dict)) {
+            instructions.forEach(planStep => {
+              // planStep might look like ["monitor", "neuro checks"]
+              if (Array.isArray(planStep) && planStep.length === 2) {
+                const [verb, noun] = planStep;
                 plansHTML += `<pre class="plan-array">(${verb}, ${noun})</pre>`;
+              } else {
+                // Fallback for unexpected structure
+                plansHTML += `<pre class="plan-array">${JSON.stringify(planStep)}</pre>`;
               }
             });
           }
@@ -361,10 +367,10 @@
     updateCompletedCount();
   </script>
 </body>
-<footer ></footer>
-  <center>
-  <p style="font-size: 0.9em; color: grey;">simple annotator. contact sam if any questions!</p>
-  </center>
-  <br>
-</footer>
+<footer >
+    <center>
+    <p style="font-size: 0.9em; color: grey;">simple annotator. contact sam if any questions!</p>
+    </center>
+    <br>
+  </footer>
 </html>
