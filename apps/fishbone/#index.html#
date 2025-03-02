@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fishbone Diagram Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+            margin-right: 10px;
+        }
+        input {
+            width: 100px;
+            margin-bottom: 5px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 10px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .copy-status {
+            margin-left: 10px;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fishbone Diagram Generator</h1>
+    
+    <h2>Basic Metabolic Panel (BMP)</h2>
+    <form id="bmpForm">
+        <label for="na">Na:</label>
+        <input type="number" id="na" name="na" required><br>
+        <label for="k">K:</label>
+        <input type="number" id="k" name="k" required><br>
+        <label for="cl">Cl:</label>
+        <input type="number" id="cl" name="cl" required><br>
+        <label for="hco3">HCO3:</label>
+        <input type="number" id="hco3" name="hco3" required><br>
+        <label for="bun">BUN:</label>
+        <input type="number" id="bun" name="bun" required><br>
+        <label for="cr">Cr:</label>
+        <input type="number" id="cr" name="cr" required><br>
+        <label for="glucose">Glucose:</label>
+        <input type="number" id="glucose" name="glucose" required><br>
+    </form>
+    <pre id="bmpDiagram"></pre>
+    <button onclick="copyToClipboard('bmpDiagram', 'bmpCopyStatus')">Copy to Clipboard</button>
+    <span id="bmpCopyStatus" class="copy-status"></span>
+<br><br><br>
+    <h2>Complete Blood Count (CBC)</h2>
+    <form id="cbcForm">
+        <label for="wbc">WBC:</label>
+        <input type="number" id="wbc" name="wbc" step="0.1" required><br>
+        <label for="hgb">Hgb:</label>
+        <input type="number" id="hgb" name="hgb" step="0.1" required><br>
+        <label for="hct">Hct:</label>
+        <input type="number" id="hct" name="hct" step="0.1" required><br>
+        <label for="plt">PLT:</label>
+        <input type="number" id="plt" name="plt" required><br>
+    </form>
+    <pre id="cbcDiagram"></pre>
+    <button onclick="copyToClipboard('cbcDiagram', 'cbcCopyStatus')">Copy to Clipboard</button>
+    <span id="cbcCopyStatus" class="copy-status"></span>
+
+    <script>
+        function padValue(value, length) {
+            return value.toString().padStart(length);
+        }
+
+        function generateBMP() {
+            const na = padValue(document.getElementById('na').value, 4);
+            const k = padValue(document.getElementById('k').value, 4);
+            const cl = padValue(document.getElementById('cl').value, 4);
+            const hco3 = padValue(document.getElementById('hco3').value, 4);
+            const bun = padValue(document.getElementById('bun').value, 4);
+            const cr = padValue(document.getElementById('cr').value, 4);
+            const glucose = padValue(document.getElementById('glucose').value, 4);
+
+            const diagram = `
+${na}|${cl}|${bun}
+-----------------<${glucose}
+${k}|${hco3}|${cr}
+            `;
+
+            document.getElementById('bmpDiagram').textContent = diagram;
+            clearCopyStatus('bmpCopyStatus');
+        }
+
+        function generateCBC() {
+            const wbc = padValue(document.getElementById('wbc').value, 4);
+            const hgb = padValue(document.getElementById('hgb').value, 4);
+            const hct = padValue(document.getElementById('hct').value, 4);
+            const plt = padValue(document.getElementById('plt').value, 4);
+
+            const diagram = `
+   \\${hgb} /
+    \\   / 
+${wbc}  . ${plt}
+    /   \\
+   /${hct} \\
+            `;
+
+            document.getElementById('cbcDiagram').textContent = diagram;
+            clearCopyStatus('cbcCopyStatus');
+        }
+
+        function copyToClipboard(elementId, statusId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                document.getElementById(statusId).textContent = 'Copied to clipboard';
+            });
+        }
+
+        function clearCopyStatus(statusId) {
+            document.getElementById(statusId).textContent = '';
+        }
+
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', () => {
+                if (input.form.id === 'bmpForm') {
+                    generateBMP();
+                } else if (input.form.id === 'cbcForm') {
+                    generateCBC();
+                }
+            });
+        });
+
+        // Initial generation
+        generateBMP();
+        generateCBC();
+    </script>
+    <footer style="padding-top: 5%; font-family: monospace;">
+        ---
+        <p>by Sam Rawal</p>
+        <p><a href="https://samrawal.com">samrawal.com</a> / <a href="https://x.com/samarthrawal">@samarthrawal</a></p>
+    </footer>
+</body>
+</html>
