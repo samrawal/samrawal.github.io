@@ -38,7 +38,7 @@
     <link type="text/css" rel="stylesheet" href="/css/about.min.0eaa5174415ee29b69f338eb8496b896950c30d9ca9bed931b09a62610c5d456.css" integrity="sha256-DqpRdEFe4ptp8zjrhJa4lpUMMNnKm&#43;2TGwmmJhDF1FY="/>
   
     
-    <link type="text/css" rel="stylesheet" href="/css/custom.min.eac7a1788463f069e0c5a36cd7f70cd1875054f6ffd73f060fd98f7b15c13af1.css" integrity="sha256-6seheIRj8GngxaNs1/cM0YdQVPb/1z8GD9mPexXBOvE="/>
+    <link type="text/css" rel="stylesheet" href="/css/custom.min.915a757a75cc77c2a8075012a98a587c5f44f7fb594f64677ed929d3381c12e1.css" integrity="sha256-kVp1enXMd8KoB1ASqYpYfF9E9/tZT2Rnftkp0zgcEuE="/>
   
   
    
@@ -86,10 +86,6 @@
     
       <li>
         <a  href="/projects">🤖 projects</a>
-      </li>
-    
-      <li>
-        <a  href="https://cactiml.com/">🌵 clinical ai</a>
       </li>
     
       <li>
@@ -144,47 +140,126 @@
     <p class="post__content">
 	
 <p>
-I have been researching in the Clinical Natural Language Processing (NLP) space for the past 7 years. The overarching theme of my work is <strong>semantic parsing of clinical data (like Electronic Medical Records) to extract information that can be used to make actionable decisions for healthcare delivery and contribute to downstream research.</strong> </p>
+
+
+<div style="color: #5c7883ff; margin: 0.75rem 0 0.5rem 1rem; font-size: 1.00em; line-height: 1.7;">
+  ⤷ <a style="color: inherit;" href="#articles">Articles</a>
+  <br>
+  ⤷ <a style="color: inherit;" href="#software">Software</a>
+  <br>
+  ⤷ <a style="color: inherit;" href="#selected-works">Selected Works</a>
+</div>
+
+</p>
+<p>
+I have been researching in the Clinical Natural Language Processing (NLP) space for the past decade. The overarching theme of my work is <strong>semantic parsing of clinical data (like Electronic Medical Records) to extract information that can be used to make actionable decisions for healthcare delivery and contribute to downstream research.</strong> </p>
 <ul>
-<li>At Arizona State (2014-20), I worked under Dr. Chitta Baral in the <a href="https://cogintlab-asu.github.io">Cognition and Intelligence Lab</a> throughout my BS and MS, where I collaborated with organizations like the Mayo Clinic </li>
-<li>At the University of Illinois (2020-24) as a medical student, I am currently working under <a href="https://sites.google.com/view/yoga-personal/home">Dr. Yoga Varatharajah</a> on semantic processing of EEG-related medical notes.</li>
+<li>At <strong>Arizona State</strong> (<strong>2014-20</strong>), I worked under Dr. Chitta Baral in the <a href="https://cogintlab-asu.github.io">Cognition and Intelligence Lab</a> throughout my BS and MS, where I collaborated with organizations like the Mayo Clinic </li>
+<li>At the <strong>University of Illinois</strong> (<strong>2020-24</strong>) as a medical student, I worked under <a href="https://sites.google.com/view/yoga-personal/home">Dr. Yoga Varatharajah</a> on semantic processing of EEG-related medical notes.</li>
+<li>As a resident at <strong>Mayo Clinic</strong> (<strong>2024-</strong>), I work in the <a href="https://www.beaconlab.ai/">BEACON Lab</a> on combining my clinical and technical backgrounds to develop, evaluate, and deploy clinical AI tools.</li>
 </ul>
 <p>
-Some articles written about our work:</p>
+
+
+<br><h1 id="articles" style="font-size:1.99em;">Articles</h1>
+
+</p>
 <ul>
+<li><a href="https://college.mayo.edu/about/news/news-archive/new-residents-begin-their-journey-at-mayo-clinic-school-of-graduate-medical-education-in-arizona/">Combining interest in artificial intelligence with medicine</a> - a feature in Mayo Clinic about my goals throughout residency and thoughts about the future of AI in medicine</li>
 <li><a href="https://medicine.illinois.edu/news/carle-illinois-machine-learning-system-for-eeg-analysis-wins-ieee-honors">Carle Illinois Machine Learning System for EEG Analysis Wins IEEE Honors</a> - Work focusing on extracting components from a clinical specification from epilepsy medical records; won &#34;Best Paper&#34; award at IEEE SPMB 2021.</li>
 <li><a href="https://bioengineering.illinois.edu/news/NeurIPS-conf-2022">Improving AI Models for Better Patient Care</a> - Work presented at NeurIPS 2022</li>
 </ul>
-<hr>
 <p>
-🌵 In addition to papers, I publish Clinical AI software at <a href="https://cactiml.com">cactiML.com</a>. My overall goals are to:</p>
+
+<br><h1 id="software" style="font-size:1.99em;">Software</h1>
+<br>
+
+
+🌵 In addition to papers, I build Clinical AI software. My goals are to</p>
 <ul>
-<li>
-<p>Build Clinical AI software which</p>
-<ul>
-<li><span style="text-decoration: underline;">Makes information deep within medical records more accessible</span>: <strong>semantically filter, search, and extract clinical information</strong> from medical data like Electronic Medical Records</li>
+<li><span style="text-decoration: underline;">Make information deep within medical records more accessible</span>: <strong>semantically filter, search, and extract clinical information</strong> from medical data like Electronic Medical Records</li>
 <li><span style="text-decoration: underline;">Is generalizable</span>: can be <strong>applied across a range of clinical tasks</strong> without significant task-specific training</li>
-</ul>
-</li>
 <li>Develop packages, models, and tools that can be used as <strong>building blocks for further downstream clinical research and development</strong></li>
 </ul>
+<div id="outline-container-headline-1" class="outline-3">
+<h3 id="headline-1">
+software:
+</h3>
+<div id="outline-text-headline-1" class="outline-text-3">
+<ul>
+<li>
+<span style="background:#fff3cd; border:1px solid #ffe69c; color:#664d03; border-radius:6px; padding:0 0.35em; font-size:0.85em; font-weight:600;">*</span>
+ <strong><a href="https://www.getosler.com/">Osler</a></strong>: a workspace + copilot for physicians writing H&amp;P notes that is designed to <strong>augment</strong> thinking, not <strong>replace</strong> it. (<a href="https://x.com/samarthrawal/status/1943007742215819622">More information</a>)</li>
+<li><strong><a href="https://labs.cactiml.com/medqa">MedQA</a></strong>: a GPT-powered clinical reference tool that can answer clinical questions and follow-up questions in natural language, along with references to sources. (<a href="https://twitter.com/samarthrawal/status/1620545601296564228">More information</a>)</li>
+<li><strong><a href="https://github.com/cactiML/clinisift">clinisift</a></strong>: multitool for processing clinical medical records.</li>
+<li><strong><a href="https://github.com/cactiML/clinitokenizer">clinitokenizer</a></strong>: sentence tokenizer for clinical/medical text.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-3">
+<h3 id="headline-2">
+models:
+</h3>
+<div id="outline-text-headline-2" class="outline-text-3">
+<ul>
+<li><strong><a href="https://huggingface.co/samrawal/bert-base-uncased_clinical-ner">bert-Clinical-NER</a></strong>: a Named Entity Recognition model for clinical entities (problem, treatment, test).</li>
+<li><strong><a href="https://huggingface.co/samrawal/bert-large-uncased_med-ner">bert-Med-NER</a></strong>: a Named Entity Recognition model for medication entities (medication name, dosage, duration, frequency, reason).</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+datasets and resources:
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<ul>
+<li><strong><a href="https://github.com/cactiML/clinical-gpt3">Clinical GPT-3</a></strong>: exploration of OpenAI GPT-3&#39;s abilities to perform various Natural Language Processing tasks in the clinical domain, on patient medical records.</li>
+<li><strong>Sample Medical Notes</strong>: a collection of generated medical notes that can be used publicly for demos, etc. <em>Coming soon.</em></li>
+</ul>
 <hr>
 <p>
-Below are a few of the projects I&#39;ve worked on. There are also more details on <a href="https://scholar.google.com/citations?hl=en&amp;view_op=list_works&amp;gmla=AJsN-F4Z_DwLiouFvTlzv8CWVBrQnrbn0veL7RkBpve5vB2hgo20WK8-nJf4v3jcYnydXKTM1h4HpM1HbExZL8OrDjLRtl0zkg&amp;user=exo0qwUAAAAJ">Google Scholar</a>, my <a href="../pdf/SamRawal_Resume.pdf">resume</a>, or <a href="https://www.linkedin.com/in/samrawal/">LinkedIn</a>.</p>
+
+
+<br><h1 id="selected-works" style="font-size:1.99em;">Selected Works</h1>
+</i>
+<br>
+
+
+Full work on <a href="https://scholar.google.com/citations?hl=en&amp;view_op=list_works&amp;gmla=AJsN-F4Z_DwLiouFvTlzv8CWVBrQnrbn0veL7RkBpve5vB2hgo20WK8-nJf4v3jcYnydXKTM1h4HpM1HbExZL8OrDjLRtl0zkg&amp;user=exo0qwUAAAAJ">Google Scholar</a>, my <a href="../pdf/SamRawal_Resume.pdf">resume</a>, or <a href="https://www.linkedin.com/in/samrawal/">LinkedIn</a>.</p>
+<hr>
+
+
+<br>
+
+
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+MIRIAD: Augmenting LLMs with millions of medical query-response pairs [preprint]
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+
+<p style="color:darkgreen; font-size:.9em; margin-top: 0;">
+    Q. Zheng, S. Abdullah, <b>S. Rawal</b>, C. Zakka, S. Ostmeier, M. Purk, E. Reis, E. J. Topol, J. Leskovec, M. Moor. <i>arXiv (cs.CL), 2025.</i></p>
+
+
+<p>
+MIRIAD is a large-scale curated corpus of ~5.8M medical instruction-response pairs grounded in peer-reviewed medical literature, designed to improve retrieval-augmented generation (RAG) and reduce hallucinations in medical QA. We also introduce MIRIAD-Atlas, an interactive semantic map to explore queries and grounded responses across medical disciplines.</p>
+<p>
+<a href="https://arxiv.org/abs/2506.06091">Paper (arXiv)</a> | <a href="https://med-miriad.github.io/">Project page</a> | <a href="https://github.com/eth-medical-ai-lab/MIRIAD">Code</a> | <a href="https://huggingface.co/miriad">Dataset</a> | <a href="https://med-miriad.github.io/demo">Demo</a></p>
+<img src="../images/miriad.jpeg" alt="../images/miriad.jpeg" title="../images/miriad.jpeg" height="200px;" style="margin-top: 1em"/>
 <p>
 
-
-<br><h1 style="font-size:1.99em;">Selected Works</h1>
-<i>Full work on <a href="https://scholar.google.com/citations?hl=en&view_op=list_works&gmla=AJsN-F4Z_DwLiouFvTlzv8CWVBrQnrbn0veL7RkBpve5vB2hgo20WK8-nJf4v3jcYnydXKTM1h4HpM1HbExZL8OrDjLRtl0zkg&user=exo0qwUAAAAJ">Google Scholar</a>.
-</i>
-<br><br><hr>
-
+ <br><hr> 
 </p>
-<div id="outline-container-headline-1" class="outline-2">
-<h2 id="headline-1">
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
 SCORE-IT: A Machine Learning-based Tool for Automatic Standardization of EEG Reports
 </h2>
-<div id="outline-text-headline-1" class="outline-text-2">
+<div id="outline-text-headline-5" class="outline-text-2">
 
 <p style="color:darkgreen; font-size:.9em; margin-top: 0;">
     <b>S Rawal</b>, Y Varatharajah. <i>2021 IEEE Signal Processing in Medicine and Biology Symposium (SPMB).</i></p>
@@ -203,11 +278,11 @@ In this work, we propose a machine learning-based system that automatically extr
 </p>
 </div>
 </div>
-<div id="outline-container-headline-2" class="outline-2">
-<h2 id="headline-2">
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
 Evaluating Latent Space Robustness and Uncertainty of EEG-ML Models under Realistic Distribution Shifts
 </h2>
-<div id="outline-text-headline-2" class="outline-text-2">
+<div id="outline-text-headline-6" class="outline-text-2">
 
 <p style="color:darkgreen; font-size:.9em; margin-top: 0;">
     N. Wagh, J. Wei, <b>S. Rawal</b>, B. M. Berry, Y. Varatharajah. <i>Conference on Neural Information Processing Systems (NeurIPS) 2022.</i>
@@ -223,11 +298,11 @@ Abstract: The recent availability of large datasets in bio-medicine has inspired
 </p>
 </div>
 </div>
-<div id="outline-container-headline-3" class="outline-2">
-<h2 id="headline-3">
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
 Multi-Perspective Biomedical Semantic Question-Answering (MS Thesis)
 </h2>
-<div id="outline-text-headline-3" class="outline-text-2">
+<div id="outline-text-headline-7" class="outline-text-2">
 <p>This work introduces the concept of a Multi-Perspective IR system, a novel methodology that combines multiple Transformers-based deep learning and traditional IR models to better predict the relevance of a query-sentence pair, along with a standardized framework for tuning this system. </p>
 <p>
 Given a query in natural language, search across 29 million PubMed abstracts and identify top <em>n</em> candidate sentences that answer the query. To better &#34;understand&#34; and rank candidates, a weighted &#34;Multi-Perspective&#34; approach, utilizing three BERT models trained on different tasks, is taken.</p>
@@ -240,11 +315,11 @@ Given a query in natural language, search across 29 million PubMed abstracts and
 </p>
 </div>
 </div>
-<div id="outline-container-headline-4" class="outline-2">
-<h2 id="headline-4">
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
 Developing and Using Special-Purpose Lexicons for Cohort Selection from Clinical Notes
 </h2>
-<div id="outline-text-headline-4" class="outline-text-2">
+<div id="outline-text-headline-8" class="outline-text-2">
 
 <p style="color:darkgreen; font-size:.9em; margin-top: 0;">
     <b>S. Rawal</b>, A. Prakash, S. Adhya, S. Kulkarni, S. Anwar, C. Baral, M. Devarakonda. <i>2018 National NLP Clinical Challenges shared tasks.</i>
@@ -263,11 +338,11 @@ Part of the <a href="https://n2c2.dbmi.hms.harvard.edu/">n2c2 2018 Challenge</a>
 </p>
 </div>
 </div>
-<div id="outline-container-headline-5" class="outline-2">
-<h2 id="headline-5">
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
 Prescription Information Extraction from Electronic Health Records (BS Thesis)
 </h2>
-<div id="outline-text-headline-5" class="outline-text-2">
+<div id="outline-text-headline-9" class="outline-text-2">
 <p>Bidirectional LSTM + CRF neural architecture for Named Entity Recognition applied to the i2b2 2009 Medication Information extraction challenge.</p>
 <p>
 <a href="https://repository.asu.edu/items/48493">Undergraduate Honors Thesis</a></p>
@@ -291,7 +366,10 @@ Prescription Information Extraction from Electronic Health Records (BS Thesis)
 
   
   <script src="/js/index.min.301a8b0870381bf76b3b5182e8966d363a0474281183439beb024d8b8228fc66.js" integrity="sha256-MBqLCHA4G/drO1GC6JZtNjoEdCgRg0Ob6wJNi4Io/GY=" crossorigin="anonymous"></script>
-   
+  
+  
+  <script src="/js/photo-carousel.min.bce744f44ac84b1498719502388132dfb35c34b5a2d44158e04662eee59fde81.js" integrity="sha256-vOdE9ErISxSYcZUCOIEy37NcNLWi1EFY4EZi7uWf3oE=" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

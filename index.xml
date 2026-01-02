@@ -22,8 +22,8 @@
       
       <guid>http://samrawal.github.io/projects/</guid>
       <description>A collection of non-research projects I&amp;#39;ve worked on over the years. 🤖 Personal projects are hosted on github.com/samrawal. 🌵 Clinical/medical projects are available on cactiML.com. I also tweet and blog about my projects!
-Some (current) personal favorites: Clinical AI:
-MedQA: a GPT-powered clinical reference tool that can answer clinical questions and follow-up questions in natural language, along with references to sources. clinitokenizer and clinisift, BERT-based off-the-shelf tools for medical sentence tokenization and Named Entity Recognition, respectively Clinical GPT-3, an exploration of OpenAI GPT-3&amp;#39;s abilities to perform various Natural Language Processing tasks in the clinical domain, on patient medical records.</description>
+‹ › Some (current) personal favorites: Clinical AI:
+* Osler: a workspace + copilot for physicians writing H&amp;amp;P notes that is designed to augment thinking, not replace it. (More information) * Pearls: an app for capturing clinical pearls while on rounds or studying, with built-in AI agent that can automatically fetch additional context, latest guidelines, and augment the pearl (More information) MedQA: a GPT-powered clinical reference tool that can answer clinical questions and follow-up questions in natural language, along with references to sources.</description>
     </item>
     
     <item>
@@ -32,7 +32,7 @@ MedQA: a GPT-powered clinical reference tool that can answer clinical questions 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://samrawal.github.io/research/</guid>
-      <description>I have been researching in the Clinical Natural Language Processing (NLP) space for the past 7 years. The overarching theme of my work is semantic parsing of clinical data (like Electronic Medical Records) to extract information that can be used to make actionable decisions for healthcare delivery and contribute to downstream research. At Arizona State (2014-20), I worked under Dr. Chitta Baral in the Cognition and Intelligence Lab throughout my BS and MS, where I collaborated with organizations like the Mayo Clinic At the University of Illinois (2020-24) as a medical student, I am currently working under Dr.</description>
+      <description>⤷ Articles ⤷ Software ⤷ Selected Works I have been researching in the Clinical Natural Language Processing (NLP) space for the past decade. The overarching theme of my work is semantic parsing of clinical data (like Electronic Medical Records) to extract information that can be used to make actionable decisions for healthcare delivery and contribute to downstream research. At Arizona State (2014-20), I worked under Dr. Chitta Baral in the Cognition and Intelligence Lab throughout my BS and MS, where I collaborated with organizations like the Mayo Clinic At the University of Illinois (2020-24) as a medical student, I worked under Dr.</description>
     </item>
     
   </channel>
