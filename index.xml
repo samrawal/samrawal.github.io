@@ -21,9 +21,8 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://samrawal.github.io/projects/</guid>
-      <description>A collection of non-research projects I&amp;#39;ve worked on over the years. 🤖 Personal projects are hosted on github.com/samrawal. 🌵 Clinical/medical projects are available on cactiML.com. I also tweet and blog about my projects!
-‹ › Some (current) personal favorites: Clinical AI:
-* Osler: a workspace + copilot for physicians writing H&amp;amp;P notes that is designed to augment thinking, not replace it. (More information) * Pearls: an app for capturing clinical pearls while on rounds or studying, with built-in AI agent that can automatically fetch additional context, latest guidelines, and augment the pearl (More information) MedQA: a GPT-powered clinical reference tool that can answer clinical questions and follow-up questions in natural language, along with references to sources.</description>
+      <description>A collection of non-research projects I&amp;#39;ve worked on over the years. 🤖 Personal projects are hosted on github.com/samrawal. 🌵 Clinical/medical projects are available on cactiML.com. I also tweet and blog about my projects! Some slides from a talk I gave a few months ago on how I use LLMs (for research, clinical practice, and programming). ‹ › Some (current) personal favorites: Clinical AI:
+* Osler: a workspace + copilot for physicians writing H&amp;amp;P notes that is designed to augment thinking, not replace it.</description>
     </item>
     
     <item>
